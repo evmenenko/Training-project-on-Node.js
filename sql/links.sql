@@ -10,7 +10,7 @@ ALTER TABLE requests
 ALTER TABLE displays
     ADD CONSTRAINT FK_displays_to_movies FOREIGN KEY(movie_id) REFERENCES movies(id);
 
-/* таблица показы */
+/* таблица билеты */
 ALTER TABLE tickets
     ADD CONSTRAINT FK_tickets_to_users FOREIGN KEY(user_id) REFERENCES users(id),
         ADD CONSTRAINT FK_tickets_to_displays FOREIGN KEY(display_id) REFERENCES displays(id);
