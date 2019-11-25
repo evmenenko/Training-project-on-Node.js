@@ -5,6 +5,6 @@ VALUES
 (1, "administrator");
 
 INSERT INTO `users`
-(`login`, `first_name`, `last_name`, `password`, `email`, `role`)
+(`id`, `login`, `first_name`, `last_name`, `password`, `email`, `role`)
 VALUES
-("admin", "Артур", "Евмененко", "admin", "arthur.evmenenko@gmail.com", 1);
+(0, "admin", "Артур", "Евмененко", "admin", "arthur.evmenenko@gmail.com", 1);
