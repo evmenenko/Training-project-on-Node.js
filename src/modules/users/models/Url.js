@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     class Url extends Sequelize.Model {}
 
     Url.init({
-        url: {
+        route: {
             type: DataTypes.STRING(2048),
             allowNull: false,
             validate: {

@@ -8,13 +8,13 @@ module.exports = class UrlRepository {
 
     async readById(id) {
         return await url.findByPk(id, {
-            attributes: [ 'id', 'url', 'method' ],
+            attributes: [ 'id', 'route', 'method' ],
         })
     }
 
     async readFullInfoById(id) {
         return await url.findByPk(id, {
-            attributes: [ 'id', 'url', 'method' ],
+            attributes: [ 'id', 'route', 'method' ],
             include: [
                 { 
                     model: role,
@@ -27,7 +27,7 @@ module.exports = class UrlRepository {
 
     async readAll() {
         return await url.findAll({
-            attributes: [ 'id', 'url', 'method' ],
+            attributes: [ 'id', 'route', 'method' ],
         })
     }
 
