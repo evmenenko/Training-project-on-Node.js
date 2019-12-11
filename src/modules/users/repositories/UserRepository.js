@@ -2,8 +2,8 @@ const { user, role } = require('../../../classes/dbModels')
 
 module.exports = class UserRepository {
 
-    async create(user) {
-        return await user.create(user)
+    async create(object) {
+        return await user.create(object)
     }
 
     async readById(id) {
@@ -18,7 +18,7 @@ module.exports = class UserRepository {
             include: [
                 { 
                     model: role,
-                    as: roles,
+                    as: 'roles',
                     attributes: [ 'id', 'name' ],
                 }
             ]
@@ -31,15 +31,15 @@ module.exports = class UserRepository {
             include: [
                 { 
                     model: role,
-                    as: roles,
+                    as: 'roles',
                     attributes: [ 'id', 'name' ],
                 }
             ]
         })
     }
 
-    async update(id, user) {
-        return await user.update(user, {
+    async update(id, object) {
+        return await user.update(object, {
             where: { id: id },
         })
     }

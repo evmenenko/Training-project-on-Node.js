@@ -2,11 +2,17 @@ const { request, user, role } = require('../../../classes/dbModels')
 
 module.exports = class RequestRepository {
 
-    async create(request) {
-        return await request.create(request)
+    async create(object) {
+        return await request.create(object)
     }
 
     async readById(id) {
+        return await request.findByPk(id, {
+            attributes: [ 'id', 'user_id' ],
+        })
+    }
+
+    async readFullInfoById(id) {
         return await request.findByPk(id, {
             attributes: [ 'id' ],
             include: [
@@ -17,7 +23,7 @@ module.exports = class RequestRepository {
                     include: [
                         {
                             model: role,
-                            as: 'role',
+                            as: 'roles',
                             attributes: [ 'id', 'name' ],
                         },
                     ],
@@ -40,8 +46,8 @@ module.exports = class RequestRepository {
     }
 
     /* ???????????????????????????????????? */
-    async update(id, request) {
-        return await request.update(request, {
+    async update(id, object) {
+        return await request.update(object, {
             where: { id: id },
         })
     }

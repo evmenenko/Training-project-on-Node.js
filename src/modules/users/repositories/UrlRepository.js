@@ -2,8 +2,8 @@ const { url, role } = require('../../../classes/dbModels')
 
 module.exports = class UrlRepository {
 
-    async create(url) {
-        return await url.create(url)
+    async create(object) {
+        return await url.create(object)
     }
 
     async readById(id) {
@@ -31,8 +31,8 @@ module.exports = class UrlRepository {
         })
     }
 
-    async update(id, url) {
-        return await url.update(url, {
+    async update(id, object) {
+        return await url.update(object, {
             where: { id: id },
         })
     }
