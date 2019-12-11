@@ -1,5 +1,5 @@
 /**
- * Возвращается сервером, если ресурс раньше был по указанному URL, но был удалён и теперь недоступен.
+ * It is returned by the server if the resource used at the specified URL, but was deleted and is no longer available.
  */
 module.exports = class Gone extends Error {
     

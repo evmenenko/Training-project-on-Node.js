@@ -1,5 +1,5 @@
 /**
- * Возвращается сервером, если не было нашйдено соответствующего ресурса по указанному URL.
+ * It is returned by the server if requested resource is not found at the specified URL.
  */
 module.exports = class NotFound extends Error {
     

@@ -1,5 +1,5 @@
 /**
- * Возвращается сервером, если для доступа к запрашиваемому ресурсу требуется аутентификация.
+ * It is returned by the server if authentication is required to access the requested resource.
  */
 module.exports = class Unauthorized extends Error {
     

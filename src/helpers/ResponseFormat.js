@@ -1,6 +1,6 @@
 const ResponseFormat = {
 
-    build: (object, message, statusCode, statusType) => {
+    build(object, message, statusCode, statusType) {
         return {
             data: object,
             statusCode: statusCode,
@@ -9,14 +9,14 @@ const ResponseFormat = {
         }
     },
 
-    error: (object, message, statusCode, statusType) => {
+    error(object, message, statusCode, statusType) {
         return {
             error: object,
             statusCode: statusCode,
             message: message,
             statusType: statusType
         }
-    }
+    },
 
 }
 

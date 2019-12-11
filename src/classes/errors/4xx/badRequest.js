@@ -1,5 +1,5 @@
 /**
- * Возвращается сервером, если в запросе клиента обнаружена синтаксическая ошибка.
+ * It is returned by the server if a syntax error is detected in a client request.
  */
 module.exports = class BadRequest extends Error {
     
