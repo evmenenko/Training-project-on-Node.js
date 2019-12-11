@@ -29,6 +29,14 @@ ALTER TABLE `access_restrictions`
 	REFERENCES `roles`(`id`)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
+	,
+
+	ADD
+	CONSTRAINT `access_restrictions_vs_urls`
+	FOREIGN KEY (`url_id`)
+	REFERENCES `urls`(`id`)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
 ;
 
 

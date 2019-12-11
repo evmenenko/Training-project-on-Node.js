@@ -2,9 +2,9 @@ const Sequelize = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
     
-    class RolesUsers extends Sequelize.Model {}
+    class RoleUser extends Sequelize.Model {}
 
-    RolesUsers.init({}, {
+    RoleUser.init({}, {
         sequelize,
         charset: 'UTF8MB4',
         engine: 'INNODB',
@@ -16,5 +16,5 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'users_roles',
     })
 
-    return RolesUsers
+    return RoleUser
 }

@@ -35,7 +35,8 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             foreignKey: 'role_id',
         })
-        Role.hasMany(models.access_restriction, {
+        Role.belongsToMany(models.url, {
+            through: models.access_restriction,
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'role_id',
