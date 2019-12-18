@@ -1,10 +1,21 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
     
     class Ticket extends Sequelize.Model {}
 
-    Ticket.init({}, {
+    Ticket.init({
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'user_id',
+        },
+        displayId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'display_id',
+        },
+    }, {
         sequelize,
         charset: 'UTF8MB4',
         engine: 'INNODB',
@@ -12,25 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
-        modelName: 'ticket',
+        modelName: 'Ticket',
+        tableName: 'tickets',
         name: {
-            singular: 'ticket',
-            plural: 'tickets',
+            singular: 'Ticket',
+            plural: 'Tickets',
         },
-    })
-    
-    Ticket.associate = function(models) {
-        Ticket.belongsTo(models.user, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'user_id',
-        })
-        Ticket.belongsTo(models.display, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'display_id',
-        })
-    }
+    });
 
-    return Ticket
+    return Ticket;
 };

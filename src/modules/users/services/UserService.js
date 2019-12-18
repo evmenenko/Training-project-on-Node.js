@@ -1,86 +1,88 @@
-const UserRepository = require('../repositories/UserRepository')
-const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity')
-const NotFound = require('../../../classes/errors/4xx/notFound')
+const UserRepository = require('../repositories/UserRepository');
+const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
+const NotFound = require('../../../classes/errors/4xx/notFound');
 
 module.exports = class UserService {
 
-    constructor() {
-        this.UserRepository = new UserRepository()
+  constructor() {
+    this.UserRepository = new UserRepository();
+  }
+
+  async create(object) {
+
+    let user;
+    
+    user = await this.UserRepository.get({
+      where: { login: object.login },
+    });
+
+    if (user) {
+      throw new UnprocessableEntity('Login already in use');
     }
 
-    async create(object) {
+    user = await this.UserRepository.get({
+      where: { email: object.email },
+    });
 
-        let user
-        
-        user = await this.UserRepository.get({
-            where: { login: object.login },
-        })
-
-        if (user) {
-            throw new UnprocessableEntity('Login already in use')
-        }
-
-        user = await this.UserRepository.get({
-            where: { email: object.email },
-        })
-
-        if (user) {
-            throw new UnprocessableEntity('Email already in use')
-        }
-
-        return await this.UserRepository.create(object)
+    if (user) {
+      throw new UnprocessableEntity('Email already in use');
     }
 
-    async readById(id) {
+    return await this.UserRepository.create(object);
+  }
 
-        let user = await this.UserRepository.readById(id)
+  async readById(id) {
 
-        if (!user) {
-            throw new NotFound('User is not found')
-        }
+    let user = await this.UserRepository.readById(id);
 
-        return user
+    if (!user) {
+      throw new NotFound('User is not found');
+    }
+
+    return user;
+  }
+  
+  async readAll() {
+    return await this.UserRepository.readAll();
+  }
+
+  async update(id, object) {
+
+    let user;
+
+    user = await this.UserRepository.readById(id);
+
+    if (!user) {
+      throw new NotFound('User for updating is not found');
     }
     
-    async readAll() {
-        return await this.UserRepository.readAll()
+    user = await this.UserRepository.get({
+      where: { login: object.login },
+    });
+
+    if (user && user.id !== id) {
+      throw new UnprocessableEntity('Login already in use');
     }
 
-    async update(id, object) {
+    user = await this.UserRepository.get({
+      where: { email: object.email },
+    });
 
-        let user
-
-        user = await this.UserRepository.readById(id)
-
-        if (!user) {
-            throw new NotFound('User for updating is not found')
-        }
-        
-        user = await this.UserRepository.get({
-            where: { login: object.login },
-        })
-
-        if (user && user.id !== id) {
-            throw new UnprocessableEntity('Login already in use')
-        }
-
-        user = await this.UserRepository.get({
-            where: { email: object.email },
-        })
-
-        if (user && user.id !== id) {
-            throw new UnprocessableEntity('Email already in use')
-        }
-
-        return await this.UserRepository.update(id, object)
+    if (user && user.id !== id) {
+      throw new UnprocessableEntity('Email already in use');
     }
 
-    async destroy(id) {
+    return await this.UserRepository.update(id, object);
+  }
 
-        let user = await this.UserRepository.readById(id)
+  async destroy(id) {
 
-        if (!user) throw new NotFound('User for deleting is not found')
+    let user = await this.UserRepository.readById(id);
 
-        return await this.UserRepository.destroy(id)
+    if (!user) {
+      throw new NotFound('User for deleting is not found');
     }
+
+    return await this.UserRepository.destroy(id);
+  }
 }

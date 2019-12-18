@@ -1,68 +1,70 @@
-const RoleRepository = require('../repositories/RoleRepository')
-const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity')
-const NotFound = require('../../../classes/errors/4xx/notFound')
+const RoleRepository = require('../repositories/RoleRepository');
+const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
+const NotFound = require('../../../classes/errors/4xx/notFound');
 
 module.exports = class RoleService {
 
-    constructor() {
-        this.RoleRepository = new RoleRepository()
+  constructor() {
+    this.RoleRepository = new RoleRepository();
+  }
+
+  async create(object) {
+
+    let role = await this.RoleRepository.get({
+      where: { name: object.name },
+    });
+
+    if (role) {
+      throw new UnprocessableEntity('This name already in use');
     }
 
-    async create(object) {
+    return await this.RoleRepository.create(object);
+  }
 
-        let role = await this.RoleRepository.get({
-            where: { name: object.name },
-        })
+  async readById(id) {
 
-        if (role) {
-            throw new UnprocessableEntity('This name already in use')
-        }
+    let role = await this.RoleRepository.readById(id);
 
-        return await this.RoleRepository.create(object)
+    if (!role) {
+      throw new NotFound('Role is not found');
     }
 
-    async readById(id) {
+    return role;
+  }
+  
+  async readAll() {
+    return await this.RoleRepository.readAll();
+  }
 
-        let role = await this.RoleRepository.readById(id)
+  async update(id, object) {
 
-        if (!role) {
-            throw new NotFound('Role is not found')
-        }
+    let role;
 
-        return role
+    role = await this.RoleRepository.readById(id);
+
+    if (!role) {
+      throw new NotFound('Role for updating is not found');
     }
     
-    async readAll() {
-        return await this.RoleRepository.readAll()
+    role = await this.RoleRepository.get({
+      where: { name: object.name },
+    });
+
+    if (role && role.id !== id) {
+      throw new UnprocessableEntity('Name already in use');
     }
 
-    async update(id, object) {
+    return await this.RoleRepository.update(id, object);
+  }
 
-        let role
+  async destroy(id) {
 
-        role = await this.RoleRepository.readById(id)
+    let role = await this.RoleRepository.readById(id);
 
-        if (!role) {
-            throw new NotFound('Role for updating is not found')
-        }
-        
-        role = await this.RoleRepository.get({
-            where: { name: object.name },
-        })
-
-        if (role && role.id !== id) {
-            throw new UnprocessableEntity('Name already in use')
-        }
-
-        return await this.RoleRepository.update(id, object)
+    if (!role) {
+      throw new NotFound('Role for deleting is not found');
     }
 
-    async destroy(id) {
-
-        let role = await this.RoleRepository.readById(id)
-
-        if (!role) throw new NotFound('Role for deleting is not found')
-
-        return await this.RoleRepository.destroy(id)
-    }
+    return await this.RoleRepository.destroy(id);
+  }
 }

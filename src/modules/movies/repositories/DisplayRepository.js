@@ -1,60 +1,60 @@
-const { display, movie } = require('../../../classes/dbModels')
+const { Display, Movie } = require('../../../classes/dbModels');
 
 module.exports = class DisplayRepository {
 
-    async create(object) {
-        return await display.create(object)
-    }
+  async create(object) {
+    return await Display.create(object);
+  }
 
-    async readById(id) {
-        return await display.findByPk(id, {
-            attributes: [ 'id', 'movie_id', 'start_date', 'end_date' ],
-        })
-    }
+  async readById(id) {
+    return await Display.findByPk(id, {
+      attributes: [ 'id', 'movieId', 'startDate', 'endDate' ],
+    });
+  }
 
-    async readFullInfoById(id) {
-        return await display.findByPk(id, {
-            attributes: [ 'id', 'start_date', 'end_date' ],
-            include: [
-                { 
-                    model: movie,
-                    as: 'movie',
-                    attributes: [ 'id', 'name', 'preview_url', 'description' ],
-                }
-            ],
-        })
-    }
+  async readFullInfoById(id) {
+    return await Display.findByPk(id, {
+      attributes: [ 'id', 'startDate', 'endDate' ],
+      include: [
+        { 
+          model: Movie,
+          as: 'movie',
+          attributes: [ 'id', 'name', 'previewUrl', 'description' ],
+        }
+      ],
+    });
+  }
 
-    async readAll() {
-        return await display.findAll({
-            attributes: [ 'id', 'start_date', 'end_date' ],
-            include: [
-                { 
-                    model: movie,
-                    as: 'movie',
-                    attributes: [ 'id', 'name', 'preview_url' ],
-                }
-            ],
-        })
-    }
+  async readAll() {
+    return await Display.findAll({
+      attributes: [ 'id', 'startDate', 'endDate' ],
+      include: [
+        { 
+          model: Movie,
+          as: 'movie',
+          attributes: [ 'id', 'name', 'previewUrl' ],
+        }
+      ],
+    });
+  }
 
-    async update(id, object) {
-        return await display.update(object, {
-            where: { id: id },
-        })
-    }
+  async update(id, object) {
+    return await Display.update(object, {
+      where: { id: id },
+    });
+  }
 
-    async destroy(id) {
-        return await display.destroy({
-            where: { id: id },
-        })
-    }
+  async destroy(id) {
+    return await Display.destroy({
+      where: { id: id },
+    });
+  }
 
-    async get(option) {
-        return await display.findOne(option)
-    }
+  async get(option) {
+    return await Display.findOne(option);
+  }
 
-    async getAll(option) {
-        return await display.findAll(option)
-    }
+  async getAll(option) {
+    return await Display.findAll(option);
+  }
 }

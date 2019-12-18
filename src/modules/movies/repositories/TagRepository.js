@@ -1,66 +1,66 @@
-const { tag, movie } = require('../../../classes/dbModels')
+const { Tag, Movie } = require('../../../classes/dbModels')
 
 module.exports = class TagRepository {
 
-    async create(object) {
-        return await tag.create(object)
-    }
+  async create(object) {
+    return await Tag.create(object);
+  }
 
-    async readById(id) {
-        return await tag.findByPk(id, {
-            attributes: [ 'id', 'name' ],
-        })
-    }
+  async readById(id) {
+    return await Tag.findByPk(id, {
+      attributes: [ 'id', 'name' ],
+    });
+  }
 
-    async readFullInfoById(id) {
-        return await tag.findByPk(id, {
-            attributes: [ 'id', 'name' ],
-            include: [
-                { 
-                    model: movie,
-                    as: 'movie',
-                    attributes: [ 'id', 'name' ],
-                },
-            ],
-        })
-    }
+  async readFullInfoById(id) {
+    return await Tag.findByPk(id, {
+      attributes: [ 'id', 'name' ],
+      include: [
+        { 
+          model: Movie,
+          as: 'movies',
+          attributes: [ 'id', 'name' ],
+        },
+      ],
+    });
+  }
 
-    async readFullInfoById(id) {
-        return await tag.findByPk(id, {
-            attributes: [ 'id', 'name' ],
-            include: [
-                { 
-                    model: movie,
-                    as: 'movie',
-                    attributes: [ 'id', 'name', 'preview_url' ],
-                },
-            ],
-        })
-    }
+  async readFullInfoById(id) {
+    return await Tag.findByPk(id, {
+      attributes: [ 'id', 'name' ],
+      include: [
+        { 
+          model: Movie,
+          as: 'movies',
+          attributes: [ 'id', 'name', 'previewUrl' ],
+        },
+      ],
+    });
+  }
 
-    async readAll() {
-        return await tag.findAll({
-            attributes: [ 'id', 'name' ],
-        })
-    }
+  async readAll() {
+    return await Tag.findAll({
+      attributes: [ 'id', 'name' ],
+    });
+  }
 
-    async update(id, object) {
-        return await tag.update(object, {
-            where: { id: id },
-        })
-    }
+  async update(id, object) {
+    return await Tag.update(object, {
+      where: { id: id },
+    });
+  }
 
-    async destroy(id) {
-        return await tag.destroy({
-            where: { id: id },
-        })
-    }
+  async destroy(id) {
+    return await Tag.destroy({
+      where: { id: id },
+    });
+  }
 
-    async get(option) {
-        return await tag.findOne(option)
-    }
+  async get(option) {
+    return await Tag.findOne(option);
+  }
 
-    async getAll(option) {
-        return await tag.findAll(option)
-    }
+  async getAll(option) {
+    return await Tag.findAll(option);
+  }
 }

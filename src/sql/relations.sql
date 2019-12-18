@@ -8,8 +8,7 @@ ALTER TABLE `users_roles`
 	FOREIGN KEY (`user_id`)
 	REFERENCES `users`(`id`)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-	,
+	ON DELETE RESTRICT,
 
 	ADD
 	CONSTRAINT `users_roles_vs_roles`
@@ -28,13 +27,12 @@ ALTER TABLE `access_restrictions`
 	FOREIGN KEY (`role_id`)
 	REFERENCES `roles`(`id`)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-	,
+	ON DELETE RESTRICT,
 
 	ADD
-	CONSTRAINT `access_restrictions_vs_urls`
-	FOREIGN KEY (`url_id`)
-	REFERENCES `urls`(`id`)
+	CONSTRAINT `access_restrictions_vs_control_points`
+	FOREIGN KEY (`control_point_id`)
+	REFERENCES `control_points`(`id`)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -59,8 +57,7 @@ ALTER TABLE `tickets`
 	FOREIGN KEY (`user_id`)
 	REFERENCES `users`(`id`)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-	,
+	ON DELETE RESTRICT,
 
 	ADD
 	CONSTRAINT `tickets_vs_displays`
@@ -91,8 +88,7 @@ ALTER TABLE `tags_movies`
 	FOREIGN KEY (`tag_id`)
 	REFERENCES `tags`(`id`)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-	,
+	ON DELETE RESTRICT,
 
 	ADD
 	CONSTRAINT `tags_movies_vs_movies`
