@@ -42,12 +42,6 @@ module.exports = class ControlPointService {
   async update(id, object) {
 
     let controlPoint;
-
-    controlPoint = await this.ControlPointRepository.readById(id);
-
-    if (!controlPoint) {
-      throw new NotFound('Control point for updating is not found');
-    }
     
     controlPoint = await this.ControlPointRepository.get({
       where: {
@@ -60,7 +54,15 @@ module.exports = class ControlPointService {
       throw new UnprocessableEntity('Control point already in use');
     }
 
-    return await this.ControlPointRepository.update(id, object);
+    controlPoint = await this.ControlPointRepository.readById(id);
+
+    if (!controlPoint) {
+      throw new NotFound('Control point for updating is not found');
+    }
+
+    await controlPoint.update(object);
+
+    return controlPoint;
   }
 
   async destroy(id) {
@@ -71,6 +73,6 @@ module.exports = class ControlPointService {
       throw new NotFound('Control point for deleting is not found');
     }
 
-    return await this.ControlPointRepository.destroy(id);
+    await controlPoint.destroy();
   }
 }

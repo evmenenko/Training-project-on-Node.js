@@ -39,12 +39,6 @@ module.exports = class RoleService {
   async update(id, object) {
 
     let role;
-
-    role = await this.RoleRepository.readById(id);
-
-    if (!role) {
-      throw new NotFound('Role for updating is not found');
-    }
     
     role = await this.RoleRepository.get({
       where: { name: object.name },
@@ -54,7 +48,15 @@ module.exports = class RoleService {
       throw new UnprocessableEntity('Name already in use');
     }
 
-    return await this.RoleRepository.update(id, object);
+    role = await this.RoleRepository.readById(id);
+
+    if (!role) {
+      throw new NotFound('Role for updating is not found');
+    }
+
+    await role.update(object);
+
+    return role;
   }
 
   async destroy(id) {
@@ -65,6 +67,6 @@ module.exports = class RoleService {
       throw new NotFound('Role for deleting is not found');
     }
 
-    return await this.RoleRepository.destroy(id);
+    await role.destroy(id);
   }
 }

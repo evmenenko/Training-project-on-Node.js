@@ -44,6 +44,6 @@ module.exports = class RequestService {
       throw new NotFound('Request for deleting is not found');
     }
 
-    return await this.RequestRepository.destroy(id);
+    await request.destroy(id);
   }
 }

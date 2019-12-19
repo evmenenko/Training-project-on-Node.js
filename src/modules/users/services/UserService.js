@@ -49,12 +49,6 @@ module.exports = class UserService {
   async update(id, object) {
 
     let user;
-
-    user = await this.UserRepository.readById(id);
-
-    if (!user) {
-      throw new NotFound('User for updating is not found');
-    }
     
     user = await this.UserRepository.get({
       where: { login: object.login },
@@ -72,7 +66,15 @@ module.exports = class UserService {
       throw new UnprocessableEntity('Email already in use');
     }
 
-    return await this.UserRepository.update(id, object);
+    user = await this.UserRepository.readById(id);
+
+    if (!user) {
+      throw new NotFound('User for updating is not found');
+    }
+
+    await user.update(object);
+
+    return user;
   }
 
   async destroy(id) {
@@ -83,6 +85,6 @@ module.exports = class UserService {
       throw new NotFound('User for deleting is not found');
     }
 
-    return await this.UserRepository.destroy(id);
+    await user.destroy(id);
   }
 }

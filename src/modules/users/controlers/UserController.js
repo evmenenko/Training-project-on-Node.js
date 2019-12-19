@@ -8,99 +8,98 @@ class UserController {
 	}
 
 	async create(ctx, next) {
-		try {
-			let user = await this.UserService.create({
-				login: ctx.body.login,
-				password: ctx.body.password,
-				firstName: ctx.body.firstName,
-				lastName: ctx.body.lastName,
-				email: ctx.body.email,
-			});
 
-			await user.setRoles(ctx.body.roleIds);
+		let user = await this.UserService.create({
+			login: ctx.body.login,
+			password: ctx.body.password,
+			firstName: ctx.body.firstName,
+			lastName: ctx.body.lastName,
+			email: ctx.body.email,
+		});
 
-			let code = ctx.status = 201;
-			let message = "User created successfully";
-			let status = "success";
-			let data = {
-				id: user.id,
-				login: user.login,
-			};
+		await user.setRoles(ctx.body.roleIds);
 
-			ctx.body = ResponseFormat.build(data, message, code, status);
-
-		} catch (error) {
-			next(error);
-		}
+		ctx.status = 201;
+		ctx.body = ResponseFormat
+			.build(
+				{
+					id: user.id,
+					login: user.login,
+				},
+				"User created successfully",
+				201,
+				"success"
+			);
 	}
 
 	async readAll(ctx, next) {
-		try {
-			let users = await this.UserService.readAll();
-			let code = ctx.status = 200;
-			let message = "Users read successfully";
-			let status = "success";
-			
-			ctx.body = ResponseFormat.build(users, message, code, status);
+		
+		let users = await this.UserService.readAll();
 
-		} catch (error) {
-			next(error)
-		}
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				users,
+				"Users read successfully",
+				200,
+				"success"
+			);
 	}
 
 	async readById(ctx, next) {
-		try {
-			let user = await this.UserService.readById(ctx.params.id);
-			let code = ctx.status = 200;
-			let message = "User read successfully";
-			let status = "success";
+		
+		let user = await this.UserService.readById(ctx.params.id);
 
-			ctx.body = ResponseFormat.build(user, message, code, status);
-			
-		} catch (error) {
-			next(error)
-		}
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				user,
+				"User read successfully",
+				200,
+				"success"
+			);
 	}
 
 	async update(ctx, next) {
-		try {
-			await this.UserService.update(ctx.params.id, {
+
+		let updatedUser = await this.UserService.update(
+			ctx.params.id,
+			{
 				login: ctx.body.login,
 				password: ctx.body.password,
 				firstName: ctx.body.firstName,
 				lastName: ctx.body.lastName,
 				email: ctx.body.email,
-			});
+			}
+		);
 
-			let user = await this.UserService.readById(ctx.params.id);
+		await updatedUser.setRoles(ctx.body.roleIds);
 
-			await user.setRoles(ctx.body.roleIds);
-
-			let code = ctx.status = 200;
-			let message = "User updated successfully";
-			let status = "success";
-
-			ctx.body = ResponseFormat.build(user, message, code, status);
-			
-		} catch (error) {
-			next(error)
-		}
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				{
+					id: updatedUser.id,
+					login: updatedUser.login,
+				},
+				"User updated successfully",
+				200,
+				"success"
+			);
 	}
 
 	async destroy(ctx, next) {
-		try {
-			await this.UserService.destroy(ctx.params.id)
 
-			let data = {};
-			let code = ctx.status = 200;
-			let message = "User updated successfully";
-			let status = "success";
+		await this.UserService.destroy(ctx.params.id);
 
-			ctx.body = ResponseFormat.build(data, message, code, status);
-			
-		} catch (error) {
-			next(error)
-		}
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				{},
+				"User deleted successfully",
+				200,
+				"success"
+			);
 	}
 }
 
