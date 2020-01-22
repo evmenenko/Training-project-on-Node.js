@@ -39,19 +39,19 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   }, {
-      sequelize,
-      charset: 'UTF8MB4',
-      engine: 'INNODB',
-      paranoid: true,
-      createdAt: false,
-      updatedAt: false,
-      deletedAt: 'deleted_date',
-      modelName: 'User',
-      tableName: 'users',
-      name: {
-        singular: 'User',
-        plural: 'Users',
-      },
+    sequelize,
+    charset: 'UTF8MB4',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'User',
+    tableName: 'users',
+    name: {
+      singular: 'User',
+      plural: 'Users',
+    },
   });
   
   User.associate = function(models) {
