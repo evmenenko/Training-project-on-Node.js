@@ -33,6 +33,26 @@ class UserService {
     return await this.UserRepository.create(object);
   }
 
+  async readByFirstAndLastName(firstName, lastName) {
+
+    let users = await this.UserRepository.getAll({
+      where: {
+        firstName,
+        lastName,
+      },
+      attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
+      include: [
+        { 
+          model: Role,
+          as: 'roles',
+          attributes: [ 'id', 'name' ],
+        }
+      ],
+    });
+
+    return users;
+  }
+
   async readById(id) {
 
     let user = await this.UserRepository.readById(id);

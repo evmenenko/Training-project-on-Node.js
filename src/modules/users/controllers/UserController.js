@@ -42,6 +42,24 @@ class UserController {
 			);
 	}
 
+	async readByFirstAndLastName(ctx, next) {
+		
+		let users = await UserService
+			.readByFirstAndLastName(
+        ctx.request.body.firstName,
+        ctx.request.body.lastName
+      );
+
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				users,
+				"Users read successfully",
+				200,
+				"success"
+			);
+	}
+
 	async readById(ctx, next) {
 		
 		let user = await UserService.readById(ctx.params.id);
