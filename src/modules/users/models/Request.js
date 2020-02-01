@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Requests.associate = function(models) {
     Requests.belongsTo(models.User, {
+      as: 'user',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'userId',

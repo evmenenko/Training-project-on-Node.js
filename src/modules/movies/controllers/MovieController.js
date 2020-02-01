@@ -1,18 +1,14 @@
-import MovieService from '../services/MovieService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
+const MovieService = require('../services/MovieService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class MovieController {
 
-	constructor() {
-    this.MovieService = new MovieService();
-	}
-
 	async create(ctx, next) {
 
-		let movie = await this.MovieService.create({
-			name: ctx.body.name,
-			previewUrl: ctx.body.previewUrl,
-			description: ctx.body.description,
+		let movie = await MovieService.create({
+			name: ctx.request.body.name,
+			previewUrl: ctx.request.body.previewUrl,
+			description: ctx.request.body.description,
 		});
 
 		await next(); // TagController.addTags
@@ -31,7 +27,7 @@ class MovieController {
 
 	async readAll(ctx, next) {
 		
-		let movies = await this.MovieService.readAll();
+		let movies = await MovieService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -45,7 +41,7 @@ class MovieController {
 
 	async readById(ctx, next) {
 		
-		let movie = await this.MovieService.readById(ctx.params.id);
+		let movie = await MovieService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -59,12 +55,12 @@ class MovieController {
 
 	async update(ctx, next) {
 
-		let updatedMovie = await this.MovieService.update(
+		let updatedMovie = await MovieService.update(
 			ctx.params.id,
 			{
-        name: ctx.body.name,
-        previewUrl: ctx.body.previewUrl,
-        description: ctx.body.description,
+        name: ctx.request.body.name,
+        previewUrl: ctx.request.body.previewUrl,
+        description: ctx.request.body.description,
 			}
 		);
 
@@ -84,7 +80,7 @@ class MovieController {
 
 	async destroy(ctx, next) {
 
-		await this.MovieService.destroy(ctx.params.id);
+		await MovieService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -97,4 +93,4 @@ class MovieController {
 	}
 }
 
-export default new MovieController();
+module.exports = new MovieController();

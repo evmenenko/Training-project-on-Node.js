@@ -1,16 +1,12 @@
-import RequestService from '../services/RequestService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
+const RequestService = require('../services/RequestService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class RequestController {
 
-	constructor() {
-    this.RequestService = new RequestService();
-	}
-
 	async create(ctx, next) {
 
-		let request = await this.RequestService.create({
-			userId: ctx.body.userId,
+		let request = await RequestService.create({
+			userId: ctx.request.body.userId,
 		});
 
 		ctx.status = 201;
@@ -25,7 +21,7 @@ class RequestController {
 
 	async readAll(ctx, next) {
 		
-		let requests = await this.RequestService.readAll();
+		let requests = await RequestService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -39,7 +35,7 @@ class RequestController {
 
 	async readById(ctx, next) {
 		
-		let request = await this.RequestService.readById(ctx.params.id);
+		let request = await RequestService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -53,7 +49,7 @@ class RequestController {
 
 	async destroy(ctx, next) {
 
-		await this.RequestService.destroy(ctx.params.id);
+		await RequestService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -66,4 +62,4 @@ class RequestController {
 	}
 }
 
-export default new RequestController()
+module.exports = new RequestController();

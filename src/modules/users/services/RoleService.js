@@ -2,7 +2,7 @@ const RoleRepository = require('../repositories/RoleRepository');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class RoleService {
+class RoleService {
 
   constructor() {
     this.RoleRepository = new RoleRepository();
@@ -70,3 +70,5 @@ module.exports = class RoleService {
     await role.destroy(id);
   }
 }
+
+module.exports = new RoleService();

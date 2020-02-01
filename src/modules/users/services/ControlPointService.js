@@ -2,7 +2,7 @@ const ControlPointRepository = require('../repositories/ControlPointRepository')
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class ControlPointService {
+class ControlPointService {
 
   constructor() {
     this.ControlPointRepository = new ControlPointRepository();
@@ -76,3 +76,5 @@ module.exports = class ControlPointService {
     await controlPoint.destroy();
   }
 }
+
+module.exports = new ControlPointService();

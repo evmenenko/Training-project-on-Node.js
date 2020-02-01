@@ -63,4 +63,8 @@ module.exports = class TagRepository {
   async getAll(option) {
     return await Tag.findAll(option);
   }
+
+  async findOrCreate(option) {
+    return await Tag.findOrCreate(option);
+  }
 }

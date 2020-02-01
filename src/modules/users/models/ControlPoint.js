@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 	ControlPoint.associate = function(models) {
 		ControlPoint.belongsToMany(models.Role, {
 			through: models.AccessRestriction,
+			as: 'roles',
 			onUpdate: 'restrict',
 			onDelete: 'restrict',
 			foreignKey: 'controlPointId',

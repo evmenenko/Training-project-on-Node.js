@@ -1,16 +1,12 @@
-import RoleService from '../services/RoleService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
+const RoleService = require('../services/RoleService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class RoleController {
 
-	constructor() {
-    this.RoleService = new RoleService();
-	}
-
 	async create(ctx, next) {
 
-		let role = await this.RoleService.create({
-			name: ctx.body.name,
+		let role = await RoleService.create({
+			name: ctx.request.body.name,
 		});
 
 		ctx.status = 201;
@@ -25,7 +21,7 @@ class RoleController {
 
 	async readAll(ctx, next) {
 		
-		let roles = await this.RoleService.readAll();
+		let roles = await RoleService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -39,7 +35,7 @@ class RoleController {
 
 	async readById(ctx, next) {
 		
-		let role = await this.RoleService.readById(ctx.params.id);
+		let role = await RoleService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -53,10 +49,10 @@ class RoleController {
 
 	async update(ctx, next) {
 
-		let updatedRole = await this.RoleService.update(
+		let updatedRole = await RoleService.update(
       ctx.params.id,
       {
-        name: ctx.body.name,
+        name: ctx.request.body.name,
       }
     );
 
@@ -72,7 +68,7 @@ class RoleController {
 
 	async destroy(ctx, next) {
 
-		await this.RoleService.destroy(ctx.params.id);
+		await RoleService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -85,4 +81,4 @@ class RoleController {
 	}
 }
 
-export default new RoleController()
+module.exports = new RoleController();

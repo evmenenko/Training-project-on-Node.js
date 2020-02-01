@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'displayId',
     });
     Display.belongsTo(models.Movie, {
+      as: 'movie',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'movieId',

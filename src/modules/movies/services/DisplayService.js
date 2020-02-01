@@ -2,7 +2,7 @@ const DisplayRepository = require('../repositories/DisplayRepository');
 const MovieRepository = require('../repositories/MovieRepository');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class DisplayService {
+class DisplayService {
 
   constructor() {
     this.DisplayRepository = new DisplayRepository();
@@ -65,3 +65,5 @@ module.exports = class DisplayService {
     return await display.destroy(id);
   }
 }
+
+module.exports = new DisplayService();

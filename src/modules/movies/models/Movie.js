@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(2048),
       allowNull: false,
       validate: {
-        isDate: true,
+        isUrl: true,
       },
       field: 'preview_url',
     },
@@ -37,11 +37,13 @@ module.exports = (sequelize, DataTypes) => {
   Movie.associate = function(models) {
     Movie.belongsToMany(models.Tag, {
       through: models.TagMovie,
+      as: 'tags',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'movieId',
     });
     Movie.hasMany(models.Display, {
+      as: 'displays',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'movieId',

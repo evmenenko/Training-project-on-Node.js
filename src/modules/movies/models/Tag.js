@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   Tag.associate = function(models) {
     Tag.belongsToMany(models.Movie, {
       through: models.TagMovie,
+      as: 'movies',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'tagId',

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Hash = require('../../../classes/hash');
 
 module.exports = (sequelize, DataTypes) => {
   
@@ -15,10 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(300),
       allowNull: false,
       notEmpty: true,
-      notNull: true,
     },
     firstName: {
       type: DataTypes.STRING(255),
@@ -57,12 +57,14 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.belongsToMany(models.Role, {
       through: models.UserRole,
+      as: 'roles',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'userId',
     });
     User.belongsToMany(models.Display, {
       through: models.Ticket,
+      as: 'tickets',
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'userId',
@@ -73,6 +75,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
     });
   }
+
+  User.prototype.validPassword = async function (password) {
+    return await Hash.compare(password, this.password);
+  }
+
+  User.beforeCreate(
+    (user, options) => user.password = Hash.get(user.password)
+  );
 
   return User;
 }

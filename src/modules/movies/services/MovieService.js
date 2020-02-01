@@ -2,7 +2,7 @@ const MovieRepository = require('../repositories/MovieRepository');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class MovieService {
+class MovieService {
 
   constructor() {
     this.MovieRepository = new MovieRepository();
@@ -72,3 +72,5 @@ module.exports = class MovieService {
     return await movie.destroy();
   }
 }
+
+module.exports = new MovieService();

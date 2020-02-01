@@ -1,14 +1,22 @@
 const RequestRepository = require('../repositories/RequestRepository');
+const UserRepository = require('../repositories/UserRepository');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class RequestService {
+class RequestService {
 
   constructor() {
     this.RequestRepository = new RequestRepository();
+    this.UserRepository = new UserRepository();
   }
 
   async create(object) {
+
+    let user = await this.UserRepository.readById(object.userId);
+
+    if (!user) {
+      throw new UnprocessableEntity('User for deleting is not found');
+    }
 
     let request = await this.RequestRepository.get({
       where: { userId: object.userId },
@@ -44,6 +52,8 @@ module.exports = class RequestService {
       throw new NotFound('Request for deleting is not found');
     }
 
-    await request.destroy(id);
+    await request.destroy();
   }
 }
+
+module.exports = new RequestService();

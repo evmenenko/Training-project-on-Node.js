@@ -1,7 +1,7 @@
 const TagRepository = require('../repositories/TagRepository');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class TagService {
+class TagService {
 
   constructor() {
     this.TagRepository = new TagRepository();
@@ -71,3 +71,5 @@ module.exports = class TagService {
     return await tag.destroy();
   }
 }
+
+module.exports = new TagService();

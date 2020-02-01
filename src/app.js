@@ -1,5 +1,35 @@
+const Koa = require('koa');
+const databaseConnect = require('./classes/sequelize').connect;
+const initApp = require('./loaders');
+const config = require('./config');
+
+try {
+
+  databaseConnect();
+
+  const app = new Koa();
+  initApp(app);
+
+  const port = parseInt(config.port || '3000', 10);
+  app.listen(port);
+
+  console.log('Server started.');
+  
+  module.exports = app;
+
+} catch (error) {
+
+  console.log(error.name);
+  console.log(error.message);
+  console.log(error.stack);
+  
+  process.exit(1);
+}
+
+/*
+
 const Koa = require('koa')
-const Router = require('koa-router')
+const Router = require('koa-router');
 const app = new Koa()
 const router = new Router()
 
@@ -42,3 +72,5 @@ app.listen(port, () => {
 })
 
 module.exports = app
+
+*/

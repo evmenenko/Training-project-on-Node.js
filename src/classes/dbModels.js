@@ -1,12 +1,12 @@
-const usersModels = require('../modules/users')
-const moviesModels = require('../modules/movies')
+const usersModels = require('../modules/users/models');
+const moviesModels = require('../modules/movies/models');
 
-const models = {}
+const models = {};
 
-Object.assign(db, usersModels, moviesModels)
+Object.assign(models, usersModels, moviesModels);
 
 Object.keys(models).forEach(modelName => {
-    models[modelName].associate && models[modelName].associate(models)
-})
+    models[modelName].associate && models[modelName].associate(models);
+});
 
-module.exports = models
+module.exports = models;

@@ -1,23 +1,19 @@
-import UserService from '../services/UserService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
+const UserService = require('../services/UserService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class UserController {
 
-	constructor() {
-    this.UserService = new UserService();
-	}
-
 	async create(ctx, next) {
 
-		let user = await this.UserService.create({
-			login: ctx.body.login,
-			password: ctx.body.password,
-			firstName: ctx.body.firstName,
-			lastName: ctx.body.lastName,
-			email: ctx.body.email,
+		let user = await UserService.create({
+			login: ctx.request.body.login,
+			password: ctx.request.body.password,
+			firstName: ctx.request.body.firstName,
+			lastName: ctx.request.body.lastName,
+			email: ctx.request.body.email,
 		});
 
-		await user.setRoles(ctx.body.roleIds);
+		await user.setRoles(ctx.request.body.roleIds);
 
 		ctx.status = 201;
 		ctx.body = ResponseFormat
@@ -34,7 +30,7 @@ class UserController {
 
 	async readAll(ctx, next) {
 		
-		let users = await this.UserService.readAll();
+		let users = await UserService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -48,7 +44,7 @@ class UserController {
 
 	async readById(ctx, next) {
 		
-		let user = await this.UserService.readById(ctx.params.id);
+		let user = await UserService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -62,18 +58,18 @@ class UserController {
 
 	async update(ctx, next) {
 
-		let updatedUser = await this.UserService.update(
+		let updatedUser = await UserService.update(
 			ctx.params.id,
 			{
-				login: ctx.body.login,
-				password: ctx.body.password,
-				firstName: ctx.body.firstName,
-				lastName: ctx.body.lastName,
-				email: ctx.body.email,
+				login: ctx.request.body.login,
+				password: ctx.request.body.password,
+				firstName: ctx.request.body.firstName,
+				lastName: ctx.request.body.lastName,
+				email: ctx.request.body.email,
 			}
 		);
 
-		await updatedUser.setRoles(ctx.body.roleIds);
+		await updatedUser.setRoles(ctx.request.body.roleIds);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -90,7 +86,7 @@ class UserController {
 
 	async destroy(ctx, next) {
 
-		await this.UserService.destroy(ctx.params.id);
+    await UserService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -103,4 +99,4 @@ class UserController {
 	}
 }
 
-export default new UserController()
+module.exports = new UserController();

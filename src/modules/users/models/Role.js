@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   
   class Role extends Sequelize.Model {}
 

@@ -1,20 +1,16 @@
-import ControlPointService from '../services/ControlPointService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
+const ControlPointService = require('../services/ControlPointService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class ControlPointController {
 
-	constructor() {
-    this.ControlPointService = new ControlPointService();
-	}
-
 	async create(ctx, next) {
 
-		let controlPoint = await this.ControlPointService.create({
-			route: ctx.body.route,
-			method: ctx.body.method,
+		let controlPoint = await ControlPointService.create({
+			route: ctx.request.body.route,
+			method: ctx.request.body.method,
 		});
 
-		controlPoint.setRoles(ctx.body.roleIds);
+		controlPoint.setRoles(ctx.request.body.roleIds);
 
 		ctx.status = 201;
 		ctx.body = ResponseFormat
@@ -28,7 +24,7 @@ class ControlPointController {
 
 	async readAll(ctx, next) {
 		
-		let controlPoints = await this.ControlPointService.readAll();
+		let controlPoints = await ControlPointService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -42,7 +38,7 @@ class ControlPointController {
 
 	async readById(ctx, next) {
 		
-		let controlPoint = await this.ControlPointService.readById(ctx.params.id);
+		let controlPoint = await ControlPointService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -56,15 +52,15 @@ class ControlPointController {
 
 	async update(ctx, next) {
 
-		let controlPoint = await this.ControlPointService.update(
+		let controlPoint = await ControlPointService.update(
 			ctx.params.id,
 			{
-				route: ctx.body.route,
-				method: ctx.body.method,
+				route: ctx.request.body.route,
+				method: ctx.request.body.method,
 			}
 		);
 
-		controlPoint.setRoles(ctx.body.roleIds);
+		controlPoint.setRoles(ctx.request.body.roleIds);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -78,7 +74,7 @@ class ControlPointController {
 
 	async destroy(ctx, next) {
 
-		await this.ControlPointService.destroy(ctx.params.id);
+		await ControlPointService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -91,4 +87,4 @@ class ControlPointController {
 	}
 }
 
-export default new ControlPointController()
+module.exports = new ControlPointController();

@@ -6,7 +6,7 @@ USE `online_cinema_db`;
  CREATE TABLE `users` (
 	`id`			INTEGER			AUTO_INCREMENT AUTO_INCREMENT PRIMARY KEY,
 	`login`			VARCHAR(100)	NOT NULL UNIQUE,
-	`password`		VARCHAR(30)		NOT NULL,
+	`password`		VARCHAR(300)	NOT NULL,
 	`first_name`	VARCHAR(255)	NOT NULL,
 	`last_name`		VARCHAR(255)	NOT NULL,
 	`email`			VARCHAR(100)	NOT NULL UNIQUE,

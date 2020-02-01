@@ -1,11 +1,13 @@
 const UserRepository = require('../repositories/UserRepository');
+const RequestRepository = require('../repositories/RequestRepository');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
-module.exports = class UserService {
+class UserService {
 
   constructor() {
     this.UserRepository = new UserRepository();
+    this.RequestRepository = new RequestRepository();
   }
 
   async create(object) {
@@ -27,7 +29,7 @@ module.exports = class UserService {
     if (user) {
       throw new UnprocessableEntity('Email already in use');
     }
-
+    
     return await this.UserRepository.create(object);
   }
 
@@ -85,6 +87,17 @@ module.exports = class UserService {
       throw new NotFound('User for deleting is not found');
     }
 
-    await user.destroy(id);
+    let request = await this.RequestRepository.get({
+      where: { userId: id },
+    });
+
+    if (!request) {
+      throw new UnprocessableEntity('User cannot be deleted without a deletion request');
+    }
+
+    await user.destroy();
+    await request.destroy();
   }
 }
+
+module.exports = new UserService();

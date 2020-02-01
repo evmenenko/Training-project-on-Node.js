@@ -1,20 +1,14 @@
-import DisplayService from '../services/DisplayService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
-
-// Где реализовать работу с тегами
+const DisplayService = require('../services/DisplayService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class DisplayController {
 
-	constructor() {
-    this.DisplayService = new DisplayService();
-	}
-
 	async create(ctx, next) {
 
-		let display = await this.DisplayService.create({
-			startDate: ctx.body.startDate,
-			endDate: ctx.body.endDate,
-			movieId: ctx.body.movieId,
+		let display = await DisplayService.create({
+			startDate: ctx.request.body.startDate,
+			endDate: ctx.request.body.endDate,
+			movieId: ctx.request.body.movieId,
 		});
 
 		await next(); // TagController.addTags
@@ -33,7 +27,7 @@ class DisplayController {
 
 	async readAll(ctx, next) {
 		
-		let displays = await this.DisplayService.readAll();
+		let displays = await DisplayService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -47,7 +41,7 @@ class DisplayController {
 
 	async readById(ctx, next) {
 		
-		let display = await this.DisplayService.readById(ctx.params.id);
+		let display = await DisplayService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -61,12 +55,12 @@ class DisplayController {
 
 	async update(ctx, next) {
 
-		let updatedDisplay = await this.DisplayService.update(
+		let updatedDisplay = await DisplayService.update(
 			ctx.params.id,
 			{
-        startDate: ctx.body.startDate,
-        endDate: ctx.body.endDate,
-        movieId: ctx.body.movieId,
+        startDate: ctx.request.body.startDate,
+        endDate: ctx.request.body.endDate,
+        movieId: ctx.request.body.movieId,
 			}
 		);
 
@@ -82,7 +76,7 @@ class DisplayController {
 
 	async destroy(ctx, next) {
 
-		await this.DisplayService.destroy(ctx.params.id);
+		await DisplayService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -95,4 +89,4 @@ class DisplayController {
 	}
 }
 
-export default new DisplayController();
+module.exports = new DisplayController();

@@ -1,21 +1,13 @@
-import TagService from '../services/TagService'
-import ResponseFormat from '../../../helpers/ResponseFormat'
+const TagService = require('../services/TagService');
+const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class TagController {
 
-	constructor() {
-    this.TagService = new TagService();
-	}
-
 	async create(ctx, next) {
 
-		let tag = await this.TagService.create({
-			name: ctx.body.name,
+		let tag = await TagService.create({
+			name: ctx.request.body.name,
 		});
-
-		await next(); // TagController.addTags
-
-		await tag.setRoles(ctx.state.roleIds);
 
 		ctx.status = 201;
 		ctx.body = ResponseFormat
@@ -29,7 +21,7 @@ class TagController {
   
   async addTags(ctx, next) {
 
-    let addedTags = await this.TagService.addTags(ctx.body.tagNames);
+    let addedTags = await TagService.addTags(ctx.request.body.tagNames);
     
     ctx.state.tagIds = [];
 
@@ -40,7 +32,7 @@ class TagController {
 
 	async readAll(ctx, next) {
 		
-		let tags = await this.TagService.readAll();
+		let tags = await TagService.readAll();
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -54,7 +46,7 @@ class TagController {
 
 	async readById(ctx, next) {
 		
-		let tag = await this.TagService.readById(ctx.params.id);
+		let tag = await TagService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -68,10 +60,10 @@ class TagController {
 
 	async update(ctx, next) {
 
-		let updatedTag = await this.TagService.update(
+		let updatedTag = await TagService.update(
 			ctx.params.id,
 			{
-        name: ctx.body.name,
+        name: ctx.request.body.name,
 			}
 		);
 
@@ -90,7 +82,7 @@ class TagController {
 
 	async destroy(ctx, next) {
 
-		await this.TagService.destroy(ctx.params.id);
+		await TagService.destroy(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -103,4 +95,4 @@ class TagController {
 	}
 }
 
-export default new TagController();
+module.exports = new TagController();
