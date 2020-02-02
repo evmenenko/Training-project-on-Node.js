@@ -39,6 +39,20 @@ class MovieController {
 			);
 	}
 
+	async readByTags(ctx, next) {
+		
+		let movies = await MovieService.readByTags(ctx.request.body.tagIds);
+
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				movies,
+				"Movies read successfully",
+				200,
+				"success"
+			);
+	}
+
 	async readById(ctx, next) {
 		
 		let movie = await MovieService.readById(ctx.params.id);

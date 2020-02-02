@@ -1,4 +1,5 @@
 const MovieRepository = require('../repositories/MovieRepository');
+const { Tag } = require('../../../classes/dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
@@ -19,6 +20,23 @@ class MovieService {
     }
     
     return await this.MovieRepository.create(object);
+  }
+
+  async readByTags(tagIds) {
+
+    let movies = await this.MovieRepository.getAll({
+      attributes: [ 'id', 'name', 'previewUrl' ],
+      include: [
+        {
+          model: Tag,
+          as: 'tags',
+          attributes: [ 'id', 'name' ],
+          where: { id: tagIds },
+        },
+      ],
+    });
+
+    return movies;
   }
 
   async readById(id) {
