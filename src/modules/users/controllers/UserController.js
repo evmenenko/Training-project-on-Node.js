@@ -29,8 +29,12 @@ class UserController {
 	}
 
 	async readAll(ctx, next) {
-		
-		let users = await UserService.readAll();
+
+    let users = await UserService
+      .readAll(
+        parseInt(ctx.params.pageNumber, 10) || 1,
+        parseInt(ctx.params.recordsAmount, 10) || 3
+      );
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -47,7 +51,9 @@ class UserController {
 		let users = await UserService
 			.readByFirstAndLastName(
         ctx.request.body.firstName,
-        ctx.request.body.lastName
+        ctx.request.body.lastName,
+        parseInt(ctx.params.pageNumber, 10) || 1,
+        parseInt(ctx.params.recordsAmount, 10) || 3
       );
 
 		ctx.status = 200;

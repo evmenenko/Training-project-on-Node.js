@@ -1,5 +1,6 @@
 const UserRepository = require('../repositories/UserRepository');
 const RequestRepository = require('../repositories/RequestRepository');
+const { Role } = require('../../../classes/dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
@@ -33,7 +34,7 @@ class UserService {
     return await this.UserRepository.create(object);
   }
 
-  async readByFirstAndLastName(firstName, lastName) {
+  async readByFirstAndLastName(firstName, lastName, pageNumber, recordsAmount) {
 
     let users = await this.UserRepository.getAll({
       where: {
@@ -48,6 +49,8 @@ class UserService {
           attributes: [ 'id', 'name' ],
         }
       ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
     });
 
     return users;
@@ -64,8 +67,8 @@ class UserService {
     return user;
   }
   
-  async readAll() {
-    return await this.UserRepository.readAll();
+  async readAll(pageNumber, recordsAmount) {
+    return await this.UserRepository.readAll(pageNumber, recordsAmount);
   }
 
   async update(id, object) {

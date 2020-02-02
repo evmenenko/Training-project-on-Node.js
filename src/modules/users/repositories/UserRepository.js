@@ -8,13 +8,13 @@ module.exports = class UserRepository {
 
   async readById(id) {
     return await User.findByPk(id, {
-      attributes: [ 'id', 'login', 'password', 'firstName', 'lastName', 'email' ],
+      attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
     });
   }
 
   async readFullInfoById(id) {
     return await User.findByPk(id, {
-      attributes: [ 'id', 'login', 'password', 'firstName', 'lastName', 'email' ],
+      attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
       include: [
         { 
           model: Role,
@@ -25,7 +25,7 @@ module.exports = class UserRepository {
     });
   }
 
-  async readAll() {
+  async readAll(pageNumber, recordsAmount) {
     return await User.findAll({
       attributes: [ 'id', 'login' ],
       include: [
@@ -34,8 +34,11 @@ module.exports = class UserRepository {
           as: 'roles',
           attributes: [ 'id', 'name' ],
         }
-      ]
+      ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
     });
+    
   }
 
   async update(id, object) {
