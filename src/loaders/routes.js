@@ -10,7 +10,10 @@ module.exports = (app) => {
   
   router.post('/login', login);
   router.post('/register', register);
-  router.get('/logout', isAutenticated, logout);
+
+  router.use(isAutenticated);
+  
+  router.get('/logout', logout);
 
   usersRouters(router);
   moviesRouters(router);

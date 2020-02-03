@@ -1,11 +1,9 @@
 const tagController = require('../controllers/TagController');
 
-const { isAutenticated } = require('../../../loaders/passport');
-
 module.exports = (router) => {
-  router.get('/tag/:id', /* isAutenticated, */ tagController.readById);
-  router.post('/tag/:id', /* isAutenticated, */ tagController.update);
-  router.delete('/tag/:id', /* isAutenticated, */ tagController.destroy);
-  router.get('/tag', /* isAutenticated, */ tagController.readAll);
-  router.post('/tag', /* isAutenticated, */ tagController.create);
+  router.get('/tag/:id', tagController.readById);
+  router.post('/tag/:id', tagController.update);
+  router.delete('/tag/:id', tagController.destroy);
+  router.get('/tag', tagController.readAll);
+  router.post('/tag', tagController.create);
 }

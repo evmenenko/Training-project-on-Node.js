@@ -1,11 +1,9 @@
 const roleController = require('../controllers/RoleController');
 
-const { isAutenticated } = require('../../../loaders/passport');
-
 module.exports = (router) => {
-  router.get('/role/:id', /* isAutenticated, */ roleController.readById);
-  router.post('/role/:id', /* isAutenticated, */ roleController.update);
-  router.delete('/role/:id', /* isAutenticated, */ roleController.destroy);
-  router.get('/role', /* isAutenticated, */ roleController.readAll);
-  router.post('/role', /* isAutenticated, */ roleController.create);
+  router.get('/role/:id', roleController.readById);
+  router.post('/role/:id', roleController.update);
+  router.delete('/role/:id', roleController.destroy);
+  router.get('/role', roleController.readAll);
+  router.post('/role', roleController.create);
 }

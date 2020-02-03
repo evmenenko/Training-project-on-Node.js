@@ -45,8 +45,7 @@ async function register(ctx, next) {
 }
 
 async function login(ctx) {
-	
-	// нужен ли тут параметр err? см. localStrategy
+  
   await passport.authenticate('local', function(err, user, info) {
 		
 		if (err) throw err;
@@ -85,14 +84,8 @@ function logout(ctx) {
 }
 
 async function isAutenticated(ctx, next) {
-	
-	await passport.authenticate('local', function(err, user, info) {
-
-		if (err) throw err;
-
-		if (!user) throw new Unauthorized(info.message);
-
-	})(ctx);
+  
+	if (!ctx.isAuthenticated()) throw new Unauthorized();
 
 	await next();
 }

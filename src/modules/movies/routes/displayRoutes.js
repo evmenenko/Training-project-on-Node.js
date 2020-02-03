@@ -1,11 +1,9 @@
 const displayController = require('../controllers/DisplayController');
 
-const { isAutenticated } = require('../../../loaders/passport');
-
 module.exports = (router) => {
-  router.get('/display/:id', /* isAutenticated, */ displayController.readById);
-  router.post('/display/:id', /* isAutenticated, */ displayController.update);
-  router.delete('/display/:id', /* isAutenticated, */ displayController.destroy);
-  router.get('/display', /* isAutenticated, */ displayController.readAll);
-  router.post('/display', /* isAutenticated, */ displayController.create);
+  router.get('/display/:id', displayController.readById);
+  router.post('/display/:id', displayController.update);
+  router.delete('/display/:id', displayController.destroy);
+  router.get('/display', displayController.readAll);
+  router.post('/display', displayController.create);
 }
