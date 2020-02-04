@@ -27,8 +27,6 @@ class TicketController {
       displayId: ctx.request.body.displayId,
     });
 
-    console.log(ticket)
-
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
@@ -41,7 +39,14 @@ class TicketController {
 
 	async readAll(ctx, next) {
 		
-		let tickets = await TicketService.readAll();
+    let tickets;
+
+    if (ctx.query.movieId) {
+      tickets = await TicketService.readByMovieId(ctx.query.movieId);
+    }
+    else {
+      tickets = await TicketService.readAll();
+    }
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

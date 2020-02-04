@@ -3,6 +3,7 @@ const DisplayRepository = require('../repositories/DisplayRepository');
 const UserRepository = require('../../users/repositories/UserRepository');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 const UnprocessableEntity = require('../../../classes/errors/4xx/UnprocessableEntity');
+const { Display, User } = require('../../../dbModels');
 
 class TicketService {
 
@@ -52,7 +53,27 @@ class TicketService {
   }
 
   async readAll() {
-    return await this.TicketRepository.readAll();
+    return await this.TicketRepository.getAll();
+  }
+
+  async readByMovieId(id) {
+		
+		return await this.TicketRepository.getAll({
+      attributes: [ 'id' ],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: [ 'id', 'login' ],
+        },
+        {
+          model: Display,
+          as: 'display',
+          attributes: [ 'id', 'startDate', 'endDate'],
+          where: { movieId: id },
+        },
+      ],
+    });
   }
 
   async cancelTicket(object) {
