@@ -1,11 +1,13 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Любая внутренняя ошибка сервера, которая не входит в рамки остальных ошибок класса.
+ * Any internal server error that is not part of the rest of the class errors.
  */
 module.exports = class InternalServerError extends Error {
     
-    constructor(message = 'Internal server error') {
-        super(message)
-        super.name = 'InternalServerError'
-        this.status = 500
+    constructor(message = errorsInfo['5xx'].internalServerError.message) {
+        super(message);
+        super.name = errorsInfo['5xx'].internalServerError.name;
+        this.status = 500;
     }
 }

@@ -1,4 +1,5 @@
 const ResponseFormat = require('../helpers/ResponseFormat');
+const errorsInfo = require('../constants/errorsInfo');
 
 module.exports = async function(ctx, next) {
   
@@ -9,15 +10,15 @@ module.exports = async function(ctx, next) {
   } catch (err) {
 
     switch (err.name) {
-      case 'BadRequest':
-      case 'Conflict':
-      case 'Gone':
-      case 'NotFound':
-      case 'RetryWith':
-      case 'Unauthorized':
-      case 'UnprocessableEntity':
-      case 'InternalServerError':
-      case 'NotImplemented':
+      case errorsInfo['4xx'].badRequest.name:
+      case errorsInfo['4xx'].conflict.name:
+      case errorsInfo['4xx'].gone.name:
+      case errorsInfo['4xx'].notFound.name:
+      case errorsInfo['4xx'].retryWith.name:
+      case errorsInfo['4xx'].unauthorized.name:
+      case errorsInfo['4xx'].unprocessableEntity.name:
+      case errorsInfo['5xx'].internalServerError.name:
+      case errorsInfo['5xx'].notImplemented.name:
         ctx.status = err.status;
         ctx.body = ResponseFormat
           .error(

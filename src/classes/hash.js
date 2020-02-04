@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 
 class Hash {
+    
     get(data) {
         return bcrypt.hashSync(data, 10)
     }
