@@ -2,7 +2,6 @@
   "dev": {
     "username": "root",
     "password": "root",
-    "operatorsAliases": false,
     "database": "online_sinema_db",
     "host": "localhost",
     "dialect": "mysql",
@@ -11,7 +10,6 @@
   "test": {
     "username": "root",
     "password": "root",
-    "operatorsAliases": false,
     "database": "online_sinema_db",
     "host": "localhost",
     "dialect": "mysql",
@@ -20,7 +18,6 @@
   "prod": {
     "username": "root",
     "password": "root",
-    "operatorsAliases": false,
     "database": "online_sinema_db",
     "host": "localhost",
     "dialect": "mysql",
