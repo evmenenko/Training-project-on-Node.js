@@ -4,7 +4,7 @@ const moviesRouters = require('../modules/movies/routes');
 const Router = require('koa-router');
 const router = new Router();
 
-const { login, logout, register, isAutenticated } = require('./passport');
+const { login, logout, register, isAutenticated } = require('../passport');
 
 module.exports = (app) => {
   
@@ -12,12 +12,12 @@ module.exports = (app) => {
   router.post('/register', register);
 
   router.use(isAutenticated);
-  
+
   router.get('/logout', logout);
 
   usersRouters(router);
   moviesRouters(router);
-  
+
   app.use(router.routes());
   app.use(router.allowedMethods());
 }

@@ -1,7 +1,5 @@
 const controlPointController = require('../controllers/ControlPointController');
 
-const { isAutenticated } = require('../../../loaders/passport');
-
 module.exports = (router) => {
   router.get('/controlPoint/:id', controlPointController.readById);
   router.post('/controlPoint/:id', controlPointController.update);

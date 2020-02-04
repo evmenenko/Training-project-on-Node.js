@@ -1,4 +1,4 @@
-const { Movie, Display, Tag } = require('../../../classes/dbModels');
+const { Movie, Display, Tag } = require('../../../dbModels');
 
 module.exports = class MovieRepository {
 

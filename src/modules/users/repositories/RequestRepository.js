@@ -1,4 +1,4 @@
-const { Request, User, Role } = require('../../../classes/dbModels');
+const { Request, User, Role } = require('../../../dbModels');
 
 module.exports = class RequestRepository {
 

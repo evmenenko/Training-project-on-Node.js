@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const UserRepository = require('../../../modules/users/repositories/UserRepository');
+const UserRepository = require('../../modules/users/repositories/UserRepository');
 const userRepository = new UserRepository();
 
 module.exports = new LocalStrategy(

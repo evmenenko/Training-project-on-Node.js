@@ -1,5 +1,5 @@
 const MovieRepository = require('../repositories/MovieRepository');
-const { Tag } = require('../../../classes/dbModels');
+const { Tag } = require('../../../dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 

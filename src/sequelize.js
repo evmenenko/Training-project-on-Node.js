@@ -6,7 +6,7 @@ const sequelize = new Sequelize("online_cinema_db", "root", "root", {
     logging: false
 });
 
-async function connect() {
+const connect = async () => {
     await sequelize.authenticate();
     await sequelize.sync();
 }

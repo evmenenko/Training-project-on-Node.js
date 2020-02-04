@@ -1,4 +1,4 @@
-const { Tag, Movie } = require('../../../classes/dbModels')
+const { Tag, Movie } = require('../../../dbModels')
 
 module.exports = class TagRepository {
 

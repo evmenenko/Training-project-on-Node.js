@@ -1,4 +1,4 @@
-const { ControlPoint, Role } = require('../../../classes/dbModels');
+const { ControlPoint, Role } = require('../../../dbModels');
 
 module.exports = class ControlPointRepository {
 

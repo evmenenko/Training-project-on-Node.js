@@ -1,5 +1,5 @@
-const usersModels = require('../modules/users/models');
-const moviesModels = require('../modules/movies/models');
+const usersModels = require('./modules/users/models');
+const moviesModels = require('./modules/movies/models');
 
 const models = {};
 

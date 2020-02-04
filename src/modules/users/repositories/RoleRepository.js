@@ -1,4 +1,4 @@
-const { Role } = require('../../../classes/dbModels');
+const { Role } = require('../../../dbModels');
 
 module.exports = class RoleRepository {
 

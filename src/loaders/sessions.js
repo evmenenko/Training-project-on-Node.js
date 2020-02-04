@@ -1,4 +1,4 @@
-const { passport } = require('./passport');
+const { passport } = require('../passport');
 const session = require('koa-session2');
 
 module.exports = (app) => {

@@ -1,8 +1,8 @@
 const passport = require('koa-passport');
-const UserService = require('../../modules/users/services/UserService');
-const Unauthorized = require('../../classes/errors/4xx/unauthorized');
-const NotFound = require('../../classes/errors/4xx/notFound');
-const ResponseFormat = require('../../helpers/ResponseFormat');
+const UserService = require('../modules/users/services/UserService');
+const Unauthorized = require('../classes/errors/4xx/unauthorized');
+const NotFound = require('../classes/errors/4xx/notFound');
+const ResponseFormat = require('../helpers/ResponseFormat');
  
 const localStrategy = require('./strategies/localStrategy');
 

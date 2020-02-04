@@ -1,6 +1,6 @@
 const UserRepository = require('../repositories/UserRepository');
 const RequestRepository = require('../repositories/RequestRepository');
-const { Role } = require('../../../classes/dbModels');
+const { Role } = require('../../../dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 
