@@ -1,22 +1,15 @@
-const usersRouters = require('../modules/users/routes');
-const moviesRouters = require('../modules/movies/routes');
+const usersRoutes = require('../modules/users/routes');
+const moviesRoutes = require('../modules/movies/routes');
+const authRoutes = require('../modules/auth/authRoutes');
 
 const Router = require('koa-router');
 const router = new Router();
 
-const { login, logout, register, isAutenticated } = require('../passport');
-
 module.exports = (app) => {
-  
-  router.post('/login', login);
-  router.post('/register', register);
 
-  router.use(isAutenticated);
-
-  router.get('/logout', logout);
-
-  usersRouters(router);
-  moviesRouters(router);
+  authRoutes(router);
+  usersRoutes(router);
+  moviesRoutes(router);
 
   app.use(router.routes());
   app.use(router.allowedMethods());
