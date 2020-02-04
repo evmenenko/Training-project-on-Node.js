@@ -1,10 +1,43 @@
 const TicketRepository = require('../repositories/TicketRepository');
+const DisplayRepository = require('../repositories/DisplayRepository');
+const UserRepository = require('../../users/repositories/UserRepository');
 const NotFound = require('../../../classes/errors/4xx/notFound');
+const UnprocessableEntity = require('../../../classes/errors/4xx/UnprocessableEntity');
 
 class TicketService {
 
   constructor() {
     this.TicketRepository = new TicketRepository();
+    this.DisplayRepository = new DisplayRepository();
+    this.UserRepository = new UserRepository();
+  }
+
+  async create(object) {
+
+    let ticket = await this.TicketRepository.get({
+      where: {
+        userId: object.userId,
+        displayId: object.displayId,
+      },
+    });
+
+    if (ticket) {
+      throw new UnprocessableEntity('Ticket already in use');
+    }
+
+    let user = await this.UserRepository.readById(object.userId);
+
+    if (!user) {
+      throw new NotFound('User is not found');
+    }
+
+    let display = await this.DisplayRepository.readById(object.displayId);
+
+    if (!display) {
+      throw new NotFound('Display is not found');
+    }
+
+    return await this.TicketRepository.create(object);
   }
 
   async readById(id) {
@@ -20,6 +53,22 @@ class TicketService {
 
   async readAll() {
     return await this.TicketRepository.readAll();
+  }
+
+  async cancelTicket(object) {
+
+    let ticket = await this.TicketRepository.get({
+      where: {
+        userId: object.userId,
+        displayId: object.displayId,
+      },
+    });
+
+    if (!ticket) {
+      throw new NotFound('Ticket is not found');
+    }
+
+    return await ticket.destroy();
   }
 
   async destroy(id) {

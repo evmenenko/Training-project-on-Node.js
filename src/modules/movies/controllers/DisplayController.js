@@ -6,14 +6,10 @@ class DisplayController {
 	async create(ctx, next) {
 
 		let display = await DisplayService.create({
-			startDate: ctx.request.body.startDate,
-			endDate: ctx.request.body.endDate,
+			startDate: new Date(ctx.request.body.startDate),
+			endDate: new Date(ctx.request.body.endDate),
 			movieId: ctx.request.body.movieId,
 		});
-
-		await next(); // TagController.addTags
-
-		await display.setTags(ctx.state.tagIds);
 
 		ctx.status = 201;
 		ctx.body = ResponseFormat
@@ -58,8 +54,8 @@ class DisplayController {
 		let updatedDisplay = await DisplayService.update(
 			ctx.params.id,
 			{
-        startDate: ctx.request.body.startDate,
-        endDate: ctx.request.body.endDate,
+        startDate: new Date(ctx.request.body.startDate),
+        endDate: new Date(ctx.request.body.endDate),
         movieId: ctx.request.body.movieId,
 			}
 		);

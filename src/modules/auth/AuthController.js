@@ -1,6 +1,7 @@
 const UserService = require('../users/services/UserService');
 const NotFound = require('../../classes/errors/4xx/notFound');
 const ResponseFormat = require('../../helpers/ResponseFormat');
+const { passport } = require('../../passport');
 
 class AuthController {
 

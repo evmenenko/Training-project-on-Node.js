@@ -3,6 +3,42 @@ const ResponseFormat = require('../../../helpers/ResponseFormat');
 
 class TicketController {
 
+  async create(ctx, next) {
+		
+		let ticket = await TicketService.create({
+      userId: ctx.request.body.userId,
+      displayId: ctx.request.body.displayId,
+    });
+
+		ctx.status = 201;
+		ctx.body = ResponseFormat
+			.build(
+				ticket,
+				"Ticket created successfully",
+				201,
+				"success"
+			);
+  }
+  
+  async orderTicket(ctx, next) {
+		
+		let ticket = await TicketService.create({
+      userId: ctx.req.user.id,
+      displayId: ctx.request.body.displayId,
+    });
+
+    console.log(ticket)
+
+		ctx.status = 201;
+		ctx.body = ResponseFormat
+			.build(
+				ticket,
+				"Ticket ordered successfully",
+				201,
+				"success"
+			);
+  }
+
 	async readAll(ctx, next) {
 		
 		let tickets = await TicketService.readAll();
@@ -30,6 +66,24 @@ class TicketController {
 				"success"
 			);
 	}
+  
+  async cancelTicket(ctx, next) {
+
+    await TicketService.cancelTicket({
+      userId: ctx.req.user.id,
+      displayId: ctx.params.displayId,
+    });
+
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				{},
+				"Ticket canceled successfully",
+				201,
+				"success"
+			);
+  }
+
 
 	async destroy(ctx, next) {
 

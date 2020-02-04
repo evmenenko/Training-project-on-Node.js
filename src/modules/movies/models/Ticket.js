@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   class Ticket extends Sequelize.Model {}
 
   Ticket.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      field: 'user_id',
+    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -79,7 +79,7 @@ class UserService {
       where: { login: object.login },
     });
 
-    if (user && user.id !== id) {
+    if (user && user.id !== +id) {
       throw new UnprocessableEntity('Login already in use');
     }
 
@@ -87,7 +87,7 @@ class UserService {
       where: { email: object.email },
     });
 
-    if (user && user.id !== id) {
+    if (user && user.id !== +id) {
       throw new UnprocessableEntity('Email already in use');
     }
 
