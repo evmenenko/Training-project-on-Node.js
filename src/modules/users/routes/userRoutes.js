@@ -3,7 +3,7 @@ const filters = require('../../../middleware/filters');
 
 module.exports = (router) => {
   router.post('/user/:id/name', userController.changeName);
-  router.post('/user/:id/password', userController.changePassword);
+  router.post('/user/password', userController.changePassword);
   // просмотр всех пользователей админом и только себя текущим пользователем (и вообще нужен ли)
   router.get('/user/:id', filters.adminFilter, userController.readById);
   router.post('/user/:id', filters.adminFilter, userController.update);

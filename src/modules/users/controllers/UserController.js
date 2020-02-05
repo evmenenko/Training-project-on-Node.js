@@ -101,7 +101,7 @@ class UserController {
 	async changePassword(ctx, next) {
 
 		let updatedUser = await UserService.update(
-			ctx.params.id,
+			ctx.req.user.id,
 			{
 				firstName: ctx.request.body.firstName,
 				lastName: ctx.request.body.lastName,
