@@ -13,12 +13,12 @@ const sequelize = new Sequelize(
 );
 
 const connect = async () => {
-    await sequelize.authenticate();
-    await sequelize.sync();
+  await sequelize.authenticate();
+  await sequelize.sync();
 }
 
 module.exports = {
-    sequelize,
-    connect,
-    Sequelize,
+  sequelize,
+  connect,
+  Sequelize,
 }

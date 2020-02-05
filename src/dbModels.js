@@ -6,7 +6,7 @@ const models = {};
 Object.assign(models, usersModels, moviesModels);
 
 Object.keys(models).forEach(modelName => {
-    models[modelName].associate && models[modelName].associate(models);
+	models[modelName].associate && models[modelName].associate(models);
 });
 
 module.exports = models;
