@@ -33,6 +33,9 @@ class MovieController {
 		let movies;
 		
 		if (ctx.query.tagIds) {
+      if (!Array.isArray(ctx.query.tagIds)) {
+        ctx.query.tagIds = [ ctx.query.tagIds ];
+      }
 			movies = await MovieService.readAll(page, amount);
 		}
 		else {
