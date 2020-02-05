@@ -1,5 +1,6 @@
 const DisplayService = require('../services/DisplayService');
 const ResponseFormat = require('../../../helpers/ResponseFormat');
+const paginationInfo = require('../../../constants/paginationInfo');
 
 class DisplayController {
 
@@ -23,7 +24,10 @@ class DisplayController {
 
 	async readAll(ctx, next) {
 		
-		let displays = await DisplayService.readAll();
+		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.displays.defaultPage;
+		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.displays.defaultAmount;
+		
+		let displays = await DisplayService.readAll(page, amount);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

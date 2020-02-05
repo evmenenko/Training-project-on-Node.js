@@ -1,6 +1,7 @@
 const DisplayRepository = require('../repositories/DisplayRepository');
 const MovieRepository = require('../repositories/MovieRepository');
 const NotFound = require('../../../classes/errors/4xx/notFound');
+const { Movie } = require('../../../dbModels');
 
 class DisplayService {
 
@@ -31,8 +32,19 @@ class DisplayService {
     return display;
   }
   
-  async readAll() {
-    return await this.DisplayRepository.readAll();
+  async readAll(pageNumber, recordsAmount) {
+    return await this.DisplayRepository.getAll({
+      attributes: [ 'id', 'startDate', 'endDate' ],
+      include: [
+        { 
+          model: Movie,
+          as: 'movie',
+          attributes: [ 'id', 'name', 'previewUrl' ],
+        }
+      ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
+    });
   }
 
   async update(id, object) {

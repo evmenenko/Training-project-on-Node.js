@@ -8,12 +8,6 @@ module.exports = class DisplayRepository {
 
   async readById(id) {
     return await Display.findByPk(id, {
-      attributes: [ 'id', 'movieId', 'startDate', 'endDate' ],
-    });
-  }
-
-  async readFullInfoById(id) {
-    return await Display.findByPk(id, {
       attributes: [ 'id', 'startDate', 'endDate' ],
       include: [
         { 
@@ -25,17 +19,12 @@ module.exports = class DisplayRepository {
     });
   }
 
-  async readAll() {
-    return await Display.findAll({
-      attributes: [ 'id', 'startDate', 'endDate' ],
-      include: [
-        { 
-          model: Movie,
-          as: 'movie',
-          attributes: [ 'id', 'name', 'previewUrl' ],
-        }
-      ],
-    });
+  async get(option) {
+    return await Display.findOne(option);
+  }
+
+  async getAll(option) {
+    return await Display.findAll(option);
   }
 
   async update(id, object) {
@@ -48,13 +37,5 @@ module.exports = class DisplayRepository {
     return await Display.destroy({
       where: { id: id },
     });
-  }
-
-  async get(option) {
-    return await Display.findOne(option);
-  }
-
-  async getAll(option) {
-    return await Display.findAll(option);
   }
 }

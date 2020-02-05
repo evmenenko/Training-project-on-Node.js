@@ -1,4 +1,4 @@
-const { Ticket, Display, User, Movie } = require('../../../dbModels');
+const { Ticket } = require('../../../dbModels');
 
 module.exports = class TicketRepository {
 

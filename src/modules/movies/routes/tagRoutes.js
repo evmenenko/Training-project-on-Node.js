@@ -1,5 +1,6 @@
 const tagController = require('../controllers/TagController');
 
+// нужно ли вообще управлять тегами?
 module.exports = (router) => {
   router.get('/tag/:id', tagController.readById);
   router.post('/tag/:id', tagController.update);

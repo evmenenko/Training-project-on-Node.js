@@ -1,6 +1,6 @@
 const ResponseFormat = require('../helpers/ResponseFormat');
 
-module.exports = async function(ctx, next) {
+module.exports = async (ctx, next) => {
 
   ctx.status = 404;
   ctx.body = ResponseFormat

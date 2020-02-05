@@ -22,23 +22,6 @@ class MovieService {
     return await this.MovieRepository.create(object);
   }
 
-  async readByTags(tagIds) {
-
-    let movies = await this.MovieRepository.getAll({
-      attributes: [ 'id', 'name', 'previewUrl' ],
-      include: [
-        {
-          model: Tag,
-          as: 'tags',
-          attributes: [ 'id', 'name' ],
-          where: { id: tagIds },
-        },
-      ],
-    });
-
-    return movies;
-  }
-
   async readById(id) {
 
     let movie = await this.MovieRepository.readById(id);
@@ -50,8 +33,37 @@ class MovieService {
     return movie;
   }
 
-  async readAll() {
-    return await this.MovieRepository.readAll();
+  async readAll(pageNumber, recordsAmount) {
+
+    return await this.MovieRepository.getAll({
+      attributes: [ 'id', 'name', 'description', 'previewUrl' ],
+      include: [
+        {
+          model: Tag,
+          as: 'tags',
+          attributes: [ 'id', 'name' ],
+        },
+      ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
+    });
+  }
+
+  async readByTags(tagIds, pageNumber, recordsAmount) {
+
+    return await this.MovieRepository.getAll({
+      attributes: [ 'id', 'name', 'previewUrl' ],
+      include: [
+        {
+          model: Tag,
+          as: 'tags',
+          attributes: [ 'id', 'name' ],
+          where: { id: tagIds },
+        },
+      ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
+    });
   }
   
   async update(id, object) {
@@ -64,7 +76,7 @@ class MovieService {
 
     // посмотреть, можно ли оптимизировать немного проверки
     
-    if (movie && movie.id !== id) {
+    if (movie && movie.id !== +id) {
       throw new UnprocessableEntity('Movie with this name already in use');
     }
     

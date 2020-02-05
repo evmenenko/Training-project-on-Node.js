@@ -6,7 +6,7 @@ class RequestController {
 	async create(ctx, next) {
 
 		let request = await RequestService.create({
-			userId: ctx.request.body.userId,
+			userId: ctx.req.user.id,
 		});
 
 		ctx.status = 201;

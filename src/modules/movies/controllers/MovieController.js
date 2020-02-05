@@ -1,5 +1,6 @@
 const MovieService = require('../services/MovieService');
 const ResponseFormat = require('../../../helpers/ResponseFormat');
+const paginationInfo = require('../../../constants/paginationInfo');
 
 class MovieController {
 
@@ -27,21 +28,16 @@ class MovieController {
 
 	async readAll(ctx, next) {
 		
-		let movies = await MovieService.readAll();
-
-		ctx.status = 200;
-		ctx.body = ResponseFormat
-			.build(
-				movies,
-				"Movies read successfully",
-				200,
-				"success"
-			);
-	}
-
-	async readByTags(ctx, next) {
+		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.movies.defaultPage;
+		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.movies.defaultAmount;
+		let movies;
 		
-		let movies = await MovieService.readByTags(ctx.request.body.tagIds);
+		if (ctx.query.tagIds) {
+			movies = await MovieService.readAll(page, amount);
+		}
+		else {
+			movies = await MovieService.readByTags(ctx.query.tagIds, page, amount);
+		}
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

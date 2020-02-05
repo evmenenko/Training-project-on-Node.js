@@ -36,12 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'restrict',
       foreignKey: 'roleId',
     });
-    Role.belongsToMany(models.ControlPoint, {
-      through: models.AccessRestriction,
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'roleId',
-    });
   }
 
   return Role;

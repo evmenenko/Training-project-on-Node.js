@@ -7,5 +7,4 @@ module.exports = (router) => {
   userRoutes(router);
   roleRoutes(router);
   requestRoutes(router);
-  controlPointRoutes(router);
 }

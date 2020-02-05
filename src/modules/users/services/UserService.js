@@ -34,13 +34,31 @@ class UserService {
     return await this.UserRepository.create(object);
   }
 
+  async readById(id) {
+
+    let user = await this.UserRepository.get({
+      where: { id },
+      attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
+      include: [
+        { 
+          model: Role,
+          as: 'roles',
+          attributes: [ 'id', 'name' ],
+        }
+      ],
+    });
+
+    if (!user) {
+      throw new NotFound('User is not found');
+    }
+
+    return user;
+  }
+
   async readByFirstAndLastName(firstName, lastName, pageNumber, recordsAmount) {
 
-    let users = await this.UserRepository.getAll({
-      where: {
-        firstName,
-        lastName,
-      },
+    return await this.UserRepository.getAll({
+      where: { firstName, lastName },
       attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
       include: [
         { 
@@ -52,23 +70,22 @@ class UserService {
       offset: recordsAmount * (pageNumber - 1),
       limit: recordsAmount,
     });
-
-    return users;
-  }
-
-  async readById(id) {
-
-    let user = await this.UserRepository.readById(id);
-
-    if (!user) {
-      throw new NotFound('User is not found');
-    }
-
-    return user;
   }
   
   async readAll(pageNumber, recordsAmount) {
-    return await this.UserRepository.readAll(pageNumber, recordsAmount);
+
+    return await this.UserRepository.getAll({
+      attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
+      include: [
+        { 
+          model: Role,
+          as: 'roles',
+          attributes: [ 'id', 'name' ],
+        }
+      ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
+    });
   }
 
   async update(id, object) {

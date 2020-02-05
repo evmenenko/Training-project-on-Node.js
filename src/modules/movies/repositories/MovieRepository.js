@@ -37,10 +37,12 @@ module.exports = class MovieRepository {
     });
   }
 
-  async readAll() {
-    return await Movie.findAll({
-      attributes: [ 'id', 'name', 'description', 'previewUrl' ],
-    });
+  async get(option) {
+    return await Movie.findOne(option);
+  }
+
+  async getAll(option) {
+    return await Movie.findAll(option);
   }
 
   async update(id, object) {
@@ -53,13 +55,5 @@ module.exports = class MovieRepository {
     return await Movie.destroy({
       where: { id: id },
     });
-  }
-
-  async get(option) {
-    return await Movie.findOne(option);
-  }
-
-  async getAll(option) {
-    return await Movie.findAll(option);
   }
 }

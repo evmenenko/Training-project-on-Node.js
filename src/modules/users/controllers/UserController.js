@@ -1,5 +1,6 @@
 const UserService = require('../services/UserService');
 const ResponseFormat = require('../../../helpers/ResponseFormat');
+const paginationInfo = require('../../../constants/paginationInfo');
 
 class UserController {
 
@@ -30,31 +31,22 @@ class UserController {
 
 	async readAll(ctx, next) {
 
-    let users = await UserService
-      .readAll(
-        parseInt(ctx.params.pageNumber, 10) || 1,
-        parseInt(ctx.params.recordsAmount, 10) || 3
-      );
-
-		ctx.status = 200;
-		ctx.body = ResponseFormat
-			.build(
-				users,
-				"Users read successfully",
-				200,
-				"success"
-			);
-	}
-
-	async readByFirstAndLastName(ctx, next) {
-		
-		let users = await UserService
-			.readByFirstAndLastName(
-        ctx.request.body.firstName,
-        ctx.request.body.lastName,
-        parseInt(ctx.params.pageNumber, 10) || 1,
-        parseInt(ctx.params.recordsAmount, 10) || 3
-      );
+    let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.users.defaultPage;
+    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.users.defaultAmount;
+    let users;
+    
+    if (ctx.query.firstName && ctx.query.lastName) {
+      users = await UserService
+        .readByFirstAndLastName(
+          ctx.query.firstName,
+          ctx.query.lastName,
+          page,
+          amount
+        );
+    }
+    else {
+      users = await UserService.readAll(page, amount);
+    }
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -75,6 +67,31 @@ class UserController {
 			.build(
 				user,
 				"User read successfully",
+				200,
+				"success"
+			);
+	}
+
+	async changeName(ctx, next) {
+
+		let updatedUser = await UserService.update(
+			ctx.params.id,
+			{
+				firstName: ctx.request.body.firstName,
+				lastName: ctx.request.body.lastName,
+			}
+		);
+
+		await updatedUser.setRoles(ctx.request.body.roleIds);
+
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				{
+					id: updatedUser.id,
+					login: updatedUser.login,
+				},
+				"User updated successfully",
 				200,
 				"success"
 			);

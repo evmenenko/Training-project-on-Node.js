@@ -19,25 +19,6 @@ ALTER TABLE `users_roles`
 ;
 
 
-/* связи для таблицы access_restrictions */
-ALTER TABLE `access_restrictions`
-
-	ADD
-	CONSTRAINT `access_restrictions_vs_roles`
-	FOREIGN KEY (`role_id`)
-	REFERENCES `roles`(`id`)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT,
-
-	ADD
-	CONSTRAINT `access_restrictions_vs_control_points`
-	FOREIGN KEY (`control_point_id`)
-	REFERENCES `control_points`(`id`)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 /* связи для таблицы requests */
 ALTER TABLE `requests`
 

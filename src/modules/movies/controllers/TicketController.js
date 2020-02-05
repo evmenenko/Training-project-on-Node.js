@@ -1,5 +1,6 @@
 const TicketService = require('../services/TicketService');
 const ResponseFormat = require('../../../helpers/ResponseFormat');
+const paginationInfo = require('../../../constants/paginationInfo');
 
 class TicketController {
 
@@ -39,13 +40,15 @@ class TicketController {
 
 	async readAll(ctx, next) {
 		
+		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.tickets.defaultPage;
+		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.tickets.defaultAmount;
     let tickets;
 
     if (ctx.query.movieId) {
-      tickets = await TicketService.readByMovieId(ctx.query.movieId);
+      tickets = await TicketService.readByMovieId(ctx.query.movieId, page, amount);
     }
     else {
-      tickets = await TicketService.readAll();
+      tickets = await TicketService.readAll(page, amount);
     }
 
 		ctx.status = 200;

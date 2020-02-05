@@ -44,7 +44,7 @@ class RoleService {
       where: { name: object.name },
     });
 
-    if (role && role.id !== id) {
+    if (role && role.id !== +id) {
       throw new UnprocessableEntity('Name already in use');
     }
 

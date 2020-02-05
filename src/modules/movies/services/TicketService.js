@@ -52,11 +52,27 @@ class TicketService {
     return ticket;
   }
 
-  async readAll() {
-    return await this.TicketRepository.getAll();
+  async readAll(pageNumber, recordsAmount) {
+    return await this.TicketRepository.getAll({
+      attributes: [ 'id' ],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: [ 'id', 'login' ],
+        },
+        {
+          model: Display,
+          as: 'display',
+          attributes: [ 'id', 'startDate', 'endDate'],
+        },
+      ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
+    });
   }
 
-  async readByMovieId(id) {
+  async readByMovieId(movieId, pageNumber, recordsAmount) {
 		
 		return await this.TicketRepository.getAll({
       attributes: [ 'id' ],
@@ -70,9 +86,11 @@ class TicketService {
           model: Display,
           as: 'display',
           attributes: [ 'id', 'startDate', 'endDate'],
-          where: { movieId: id },
+          where: { movieId },
         },
       ],
+      offset: recordsAmount * (pageNumber - 1),
+      limit: recordsAmount,
     });
   }
 

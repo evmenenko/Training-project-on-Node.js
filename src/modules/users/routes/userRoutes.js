@@ -1,11 +1,11 @@
 const userController = require('../controllers/UserController');
+const filters = require('../../../middleware/filters');
 
 module.exports = (router) => {
-  router.post('/user/search/:pageNumber&:recordsAmount', userController.readByFirstAndLastName);
-  // не совсем уверен, в каком виде роут для пагинации делать, так что пока так
-  router.get('/user/:pageNumber&:recordsAmount', userController.readAll);
-  router.get('/user/:id', userController.readById);
-  router.post('/user/:id', userController.update);
-  router.delete('/user/:id', userController.destroy);
-  router.post('/user', userController.create);
+  // просмотр всех пользователей админом и только себя текущим пользователем (и вообще нужен ли)
+  router.get('/user/:id', filters.adminFilter, userController.readById);
+  router.post('/user/:id', filters.adminFilter, userController.update);
+  router.delete('/user/:id', filters.adminFilter, userController.destroy);
+  router.get('/user', filters.adminFilter, userController.readAll);
+  router.post('/user', filters.adminFilter, userController.create);
 }

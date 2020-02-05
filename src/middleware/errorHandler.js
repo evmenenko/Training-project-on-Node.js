@@ -1,7 +1,7 @@
 const ResponseFormat = require('../helpers/ResponseFormat');
 const errorsInfo = require('../constants/errorsInfo');
 
-module.exports = async function(ctx, next) {
+module.exports = async (ctx, next) => {
   
   try {
 
