@@ -82,7 +82,31 @@ class UserController {
 			}
 		);
 
-		await updatedUser.setRoles(ctx.request.body.roleIds);
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				{
+					id: updatedUser.id,
+					login: updatedUser.login,
+					email: updatedUser.email,
+					firstName: updatedUser.firstName,
+					lastName: updatedUser.lastName,
+				},
+				"User updated successfully",
+				200,
+				"success"
+			);
+	}
+
+	async changePassword(ctx, next) {
+
+		let updatedUser = await UserService.update(
+			ctx.params.id,
+			{
+				firstName: ctx.request.body.firstName,
+				lastName: ctx.request.body.lastName,
+			}
+		);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -90,6 +114,9 @@ class UserController {
 				{
 					id: updatedUser.id,
 					login: updatedUser.login,
+					email: updatedUser.email,
+					firstName: updatedUser.firstName,
+					lastName: updatedUser.lastName,
 				},
 				"User updated successfully",
 				200,
@@ -118,6 +145,9 @@ class UserController {
 				{
 					id: updatedUser.id,
 					login: updatedUser.login,
+					email: updatedUser.email,
+					firstName: updatedUser.firstName,
+					lastName: updatedUser.lastName,
 				},
 				"User updated successfully",
 				200,

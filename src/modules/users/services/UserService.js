@@ -108,7 +108,10 @@ class UserService {
       throw new UnprocessableEntity('Email already in use');
     }
 
-    user = await this.UserRepository.readById(id);
+    user = await this.UserRepository.get({
+      where: { id },
+      attributes: [ 'id', 'login', 'firstName', 'lastName', 'email' ],
+    });
 
     if (!user) {
       throw new NotFound('User for updating is not found');
@@ -119,9 +122,31 @@ class UserService {
     return user;
   }
 
+  async changePassword(id, oldPassword, newPassword) {
+
+    let user = await this.UserRepository.get({
+      where: { id },
+      attributes: [ 'id', 'password' ],
+    });
+
+    if (!user) {
+      throw new NotFound('User for updating is not found');
+    }
+
+    if (!user.validPassword(oldPassword)) {
+      throw new UnprocessableEntity('Password entered incorrectly');
+    }
+    
+    await user.update({ password: newPassword });
+
+    return user;
+  }
+
   async destroy(id) {
 
-    let user = await this.UserRepository.readById(id);
+    let user = await this.UserRepository.get({
+      where: { id },
+    });
 
     if (!user) {
       throw new NotFound('User for deleting is not found');
