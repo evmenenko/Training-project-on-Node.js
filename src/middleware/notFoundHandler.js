@@ -1,4 +1,5 @@
 const ResponseFormat = require('../helpers/ResponseFormat');
+const errorsInfo = require('../constants/errorsInfo');
 
 module.exports = async (ctx, next) => {
 
@@ -6,7 +7,7 @@ module.exports = async (ctx, next) => {
   ctx.body = ResponseFormat
     .error(
       {
-        name: 'NotFound',
+        name: errorsInfo.ERR_404_NAME,
       },
       'Route not found, incorrect request URL',
       404,

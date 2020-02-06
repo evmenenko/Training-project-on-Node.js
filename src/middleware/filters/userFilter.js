@@ -8,7 +8,7 @@ module.exports = async (ctx, next) => {
   
   for (let role of user.roles) {
 
-    if (role.name == usersInfo.roles.user) {
+    if (role.name == usersInfo.USER_ROLE_NAME) {
       await next();
       return;
     }

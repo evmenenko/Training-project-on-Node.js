@@ -20,4 +20,4 @@ const ResponseFormat = {
 
 }
 
-module.exports = ResponseFormat
+module.exports = ResponseFormat;

@@ -55,7 +55,7 @@ class DisplayService {
       throw new NotFound('Display for updating is not found');
     }
 
-    let movie = await this.MovieRepository.readById(movieId);
+    let movie = await this.MovieRepository.readById(object.movieId);
 
     if (!movie) {
       throw new NotFound('Movie is not found');

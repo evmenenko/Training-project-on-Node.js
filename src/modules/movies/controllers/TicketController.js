@@ -40,8 +40,8 @@ class TicketController {
 
 	async readAll(ctx, next) {
 		
-		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.tickets.defaultPage;
-		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.tickets.defaultAmount;
+		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
+		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let tickets;
 
     if (ctx.query.movieId) {

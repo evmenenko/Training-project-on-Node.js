@@ -31,8 +31,8 @@ class UserController {
 
 	async readAll(ctx, next) {
 
-    let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.users.defaultPage;
-    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.users.defaultAmount;
+    let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let users;
     
     if (ctx.query.firstName && ctx.query.lastName) {

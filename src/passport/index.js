@@ -14,11 +14,11 @@ passport.deserializeUser(async function(id, next) {
 	next(null, await UserService.readById(id));
 });
 
-async function isAutenticated(ctx, next) {
+async function isAuthenticated(ctx, next) {
   
 	if (!ctx.isAuthenticated()) throw new Unauthorized();
 
 	await next();
 }
 
-module.exports = { passport, isAutenticated };
+module.exports = { passport, isAuthenticated };

@@ -10,15 +10,15 @@ module.exports = async (ctx, next) => {
   } catch (err) {
 
     switch (err.name) {
-      case errorsInfo['4xx'].badRequest.name:
-      case errorsInfo['4xx'].conflict.name:
-      case errorsInfo['4xx'].gone.name:
-      case errorsInfo['4xx'].notFound.name:
-      case errorsInfo['4xx'].retryWith.name:
-      case errorsInfo['4xx'].unauthorized.name:
-      case errorsInfo['4xx'].unprocessableEntity.name:
-      case errorsInfo['5xx'].internalServerError.name:
-      case errorsInfo['5xx'].notImplemented.name:
+      case errorsInfo.ERR_400_NAME:
+      case errorsInfo.ERR_401_NAME:
+      case errorsInfo.ERR_404_NAME:
+      case errorsInfo.ERR_409_NAME:
+      case errorsInfo.ERR_410_NAME:
+      case errorsInfo.ERR_422_NAME:
+      case errorsInfo.ERR_449_NAME:
+      case errorsInfo.ERR_500_NAME:
+      case errorsInfo.ERR_501_NAME:
         ctx.status = err.status;
         ctx.body = ResponseFormat
           .error(

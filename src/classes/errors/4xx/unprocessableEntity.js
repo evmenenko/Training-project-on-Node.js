@@ -5,9 +5,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class UnprocessableEntity extends Error {
     
-    constructor(message = errorsInfo['4xx'].unprocessableEntity.message) {
+    constructor(message = errorsInfo.ERR_422_MESSAGE) {
         super(message);
-        super.name = errorsInfo['4xx'].unprocessableEntity.name;
+        super.name = errorsInfo.ERR_422_NAME;
         this.status = 422;
     }
 }

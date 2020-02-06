@@ -5,9 +5,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class NotFound extends Error {
     
-    constructor(message = errorsInfo['4xx'].notFound.message) {
+    constructor(message = errorsInfo.ERR_404_MESSAGE) {
         super(message);
-        super.name = errorsInfo['4xx'].notFound.name;
+        super.name = errorsInfo.ERR_404_NAME;
         this.status = 404;
     }
 }

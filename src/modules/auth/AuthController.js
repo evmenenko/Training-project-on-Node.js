@@ -2,6 +2,7 @@ const UserService = require('../users/services/UserService');
 const NotFound = require('../../classes/errors/4xx/notFound');
 const ResponseFormat = require('../../helpers/ResponseFormat');
 const { passport } = require('../../passport');
+const usersInfo = require('../../constants/usersInfo');
 
 class AuthController {
 
@@ -15,8 +16,7 @@ class AuthController {
       email: ctx.request.body.email,
     });
 
-    // 2 - user
-    await user.setRoles( [ 2 ] );
+    await user.setRoles( [ usersInfo.USER_ROLE_ID ] );
 
     ctx.login(user);
 

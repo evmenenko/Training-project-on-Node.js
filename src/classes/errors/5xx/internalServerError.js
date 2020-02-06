@@ -5,9 +5,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class InternalServerError extends Error {
     
-    constructor(message = errorsInfo['5xx'].internalServerError.message) {
+    constructor(message = errorsInfo.ERR_500_MESSAGE) {
         super(message);
-        super.name = errorsInfo['5xx'].internalServerError.name;
+        super.name = errorsInfo.ERR_500_NAME;
         this.status = 500;
     }
 }

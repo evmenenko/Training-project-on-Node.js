@@ -6,9 +6,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class NotImplemented extends Error {
     
-    constructor(message = errorsInfo['5xx'].notImplemented.message) {
+    constructor(message = errorsInfo.ERR_501_MESSAGE) {
         super(message);
-        super.name = errorsInfo['5xx'].notImplemented.name;
+        super.name = errorsInfo.ERR_501_NAME;
         this.status = 501;
     }
 }

@@ -5,9 +5,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class Unauthorized extends Error {
     
-    constructor(message = errorsInfo['4xx'].unauthorized.message) {
+    constructor(message = errorsInfo.ERR_401_MESSAGE) {
         super(message);
-        super.name = errorsInfo['4xx'].unauthorized.name;
+        super.name = errorsInfo.ERR_401_NAME;
         this.status = 401;
     }
 }

@@ -5,9 +5,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class Gone extends Error {
     
-    constructor(message = errorsInfo['4xx'].gone.message) {
+    constructor(message = errorsInfo.ERR_410_MESSAGE) {
         super(message);
-        super.name = errorsInfo['4xx'].gone.name;
+        super.name = errorsInfo.ERR_410_NAME;
         this.status = 410;
     }
 }

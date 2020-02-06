@@ -5,9 +5,9 @@ const errorsInfo = require('../../../constants/errorsInfo');
  */
 module.exports = class RetryWith extends Error {
     
-    constructor(message = errorsInfo['4xx'].retryWith.message) {
+    constructor(message = errorsInfo.ERR_449_MESSAGE) {
         super(message);
-        super.name = errorsInfo['4xx'].retryWith.name;
+        super.name = errorsInfo.ERR_449_NAME;
         this.status = 449;
     }
 }
