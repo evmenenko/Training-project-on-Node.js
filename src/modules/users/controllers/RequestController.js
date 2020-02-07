@@ -12,7 +12,7 @@ class RequestController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				request,
+				{ id: request.id },
 				"Request created successfully",
 				201,
 				"success"

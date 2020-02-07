@@ -6,7 +6,7 @@ class TicketController {
 
   async create(ctx, next) {
 		
-		let ticket = await TicketService.create({
+    let ticket = await TicketService.create({
       userId: ctx.request.body.userId,
       displayId: ctx.request.body.displayId,
     });
@@ -14,7 +14,7 @@ class TicketController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				ticket,
+				{ id: ticket.id },
 				"Ticket created successfully",
 				201,
 				"success"
@@ -31,7 +31,7 @@ class TicketController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				ticket,
+				{ id: ticket.id },
 				"Ticket ordered successfully",
 				201,
 				"success"
@@ -87,7 +87,7 @@ class TicketController {
 			.build(
 				{},
 				"Ticket canceled successfully",
-				201,
+				200,
 				"success"
 			);
   }

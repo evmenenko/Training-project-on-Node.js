@@ -12,7 +12,7 @@ class TagController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				tag,
+				{ id: tag.id },
 				"Tag created successfully",
 				201,
 				"success"

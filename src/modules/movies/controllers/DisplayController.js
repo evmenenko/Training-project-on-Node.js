@@ -15,7 +15,7 @@ class DisplayController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				display,
+				{ id: display.id },
 				"Display created successfully",
 				201,
 				"success"

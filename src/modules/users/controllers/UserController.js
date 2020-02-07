@@ -21,7 +21,6 @@ class UserController {
 			.build(
 				{
 					id: user.id,
-					login: user.login,
 				},
 				"User created successfully",
 				201,
@@ -75,7 +74,7 @@ class UserController {
 	async changeName(ctx, next) {
 
 		let updatedUser = await UserService.update(
-			ctx.params.id,
+			ctx.req.user.id,
 			{
 				firstName: ctx.request.body.firstName,
 				lastName: ctx.request.body.lastName,

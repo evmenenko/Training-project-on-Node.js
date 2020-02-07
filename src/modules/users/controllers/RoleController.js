@@ -12,7 +12,7 @@ class RoleController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				role,
+				{ id: role.id },
 				"Role created successfully",
 				201,
 				"success"

@@ -19,7 +19,7 @@ class MovieController {
 		ctx.status = 201;
 		ctx.body = ResponseFormat
 			.build(
-				movie,
+				{ id: movie.id },
 				"Movie created successfully",
 				201,
 				"success"
