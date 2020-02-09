@@ -18,12 +18,18 @@ const config = require('./config');
     console.log('Server started.');
     
     module.exports = app;
-  
-  } catch (error) {
+  }
+  catch (error) {
   
     console.log(error.name);
     console.log(error.message);
     console.log(error.stack);
+
+    try {
+      const createLog = require('./middleware/loggers/mongoLogger').createLog;
+      createLog(error);
+    } 
+    catch (ignoredError) { /* Ignore */ }
     
     process.exit(1);
   }

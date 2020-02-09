@@ -1,4 +1,6 @@
+const logger = require('../middleware/loggers/mongoLogger');
+
 module.exports = (app) => {
-  // app
-  //   .use(something);
+  app
+    .use(logger);
 }
