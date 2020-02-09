@@ -41,11 +41,14 @@ class TicketController {
 	async readAll(ctx, next) {
 		
 		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let tickets;
 
     if (ctx.query.movieId) {
       tickets = await TicketService.readByMovieId(ctx.query.movieId, page, amount);
+    }
+    else if (ctx.state.userId) {
+      tickets = await TicketService.readByUserId(ctx.query.userId, page, amount);
     }
     else {
       tickets = await TicketService.readAll(page, amount);

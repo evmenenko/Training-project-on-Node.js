@@ -31,12 +31,15 @@ class MovieController {
 		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
 		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let movies;
-    
+
 		if (ctx.query.tagIds) {
-			movies = await MovieService.readAll(page, amount);
+      if (!Array.isArray(ctx.query.tagIds)) {
+        ctx.query.tagIds = [ ctx.query.tagIds ];
+      }
+			movies = await MovieService.readByTags(ctx.query.tagIds, page, amount);
 		}
 		else {
-			movies = await MovieService.readByTags(ctx.query.tagIds, page, amount);
+			movies = await MovieService.readAll(page, amount);
 		}
 
 		ctx.status = 200;
