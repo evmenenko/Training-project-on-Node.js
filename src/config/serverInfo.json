@@ -1,0 +1,14 @@
+{
+  "email": {
+    "service": "gmail",
+    "secure": true,
+    "port": 465,
+    "auth": {
+      "user": "USERNAME",
+      "pass": "PASSWORD"
+    },
+    "tls": {
+      "rejectUnauthorized": false
+    }
+  }
+}

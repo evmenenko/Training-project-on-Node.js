@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const Hash = require('../../../classes/hash');
+const Hash = require('../../../classes/Hash');
 
 module.exports = (sequelize, DataTypes) => {
   

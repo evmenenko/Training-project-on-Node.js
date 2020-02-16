@@ -3,6 +3,7 @@ const RequestRepository = require('../repositories/RequestRepository');
 const { Role } = require('../../../dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
+const Mailer = require('../../../classes/Mailer');
 
 class UserService {
 
@@ -160,8 +161,16 @@ class UserService {
       throw new UnprocessableEntity('User cannot be deleted without a deletion request');
     }
 
+    const email = user.email;
+
     await user.destroy();
     await request.destroy();
+    
+    Mailer.sendMail(
+      email,
+      "Account deleting",
+      "Your account successfully deleted. In the future the site will realized opportunity of its restoration."
+    );
   }
 }
 
