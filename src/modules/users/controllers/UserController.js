@@ -26,26 +26,35 @@ class UserController {
 				201,
 				"success"
 			);
-	}
-
-	async readAll(ctx, next) {
+  }
+  
+  async readAll(ctx, next) {
 
     let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
     let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
-    let users;
-    
-    if (ctx.query.firstName && ctx.query.lastName) {
-      users = await UserService
-        .readByFirstAndLastName(
-          ctx.query.firstName,
-          ctx.query.lastName,
-          page,
-          amount
-        );
-    }
-    else {
-      users = await UserService.readAll(page, amount);
-    }
+    let users = await UserService.readAll(page, amount);
+
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				users,
+				"Users read successfully",
+				200,
+				"success"
+			);
+	}
+
+	async readByName(ctx, next) {
+
+    let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+    let users = await UserService
+      .readByName(
+        ctx.query.firstName,
+        ctx.query.lastName,
+        page,
+        amount
+      );
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -99,25 +108,18 @@ class UserController {
 
 	async changePassword(ctx, next) {
 
-		let updatedUser = await UserService.update(
-			ctx.req.user.id,
-			{
-				firstName: ctx.request.body.firstName,
-				lastName: ctx.request.body.lastName,
-			}
-		);
+    await UserService.changePassword(
+      ctx.req.user.id,
+      ctx.request.body.oldPassword,
+      ctx.request.body.newPassword
+    );
 
+		// что возвращать??
 		ctx.status = 200;
 		ctx.body = ResponseFormat
 			.build(
-				{
-					id: updatedUser.id,
-					login: updatedUser.login,
-					email: updatedUser.email,
-					firstName: updatedUser.firstName,
-					lastName: updatedUser.lastName,
-				},
-				"User updated successfully",
+				{},
+				"User changed password successfully",
 				200,
 				"success"
 			);

@@ -4,7 +4,7 @@ const Hash = require('../../../classes/hash');
 module.exports = (sequelize, DataTypes) => {
   
   class User extends Sequelize.Model {}
-
+  
   User.init({
     login: {
       type: DataTypes.STRING(100),

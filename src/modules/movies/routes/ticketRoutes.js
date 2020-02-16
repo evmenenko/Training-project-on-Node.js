@@ -1,29 +1,24 @@
 const ticketController = require('../controllers/TicketController');
 const filters = require('../../../middleware/filters');
+const validators = require('./validators/ticketValidators');
 
 module.exports = (router) => {
-  router.delete('/ticket/order/:displayId', filters.isUser, ticketController.cancelTicket);
-  router.post('/ticket/order', filters.isUser, ticketController.orderTicket);
-  // куда выносить эту авторизацию: в фильтры из middleware или создать в этом модуле папку filrets / middleware?
-  // и вообще стоит ли возлагать на контроллер обработку одного действия, но для 4(!) разных случаев:
-  // - просмотр абсолютно всех бронирований;
-  // - основное задание 6:
-  //   ~ просмотр бронирований определенного фильма;
-  // - дополнительное задание 12 
-  //   ~ просмотр бронирований определенного пользователя (может админ);
-  //   ~ просмотр своих бронирований (может сам пользователь);
-  // вроде бы не стоит, но на что тогда его делить?
+  router.delete('/ticket/order/display/:id', filters.isUser, validators.validateId, ticketController.cancelTicket);
+  router.post('/ticket/order', filters.isUser, validators.validateCreatedOrder, ticketController.orderTicket);
+
   router.get('/ticket/order', async (ctx, next) => {
 
     if (ctx.query.userId) {
-      ctx.state = ctx.query.userId;
+      ctx.state.id = ctx.query.userId;
       await filters.isAdmin(ctx, next);
     }
-    ctx.state = ctx.req.user.id;
+
+    ctx.state.id = ctx.req.user.id;
     await next();
-  }, ticketController.readAll);
-  router.get('/ticket/:id', ticketController.readById);
-  router.delete('/ticket/:id', ticketController.destroy);
-  router.get('/ticket', ticketController.readAll);
-  router.post('/ticket', ticketController.create);
+    
+  }, validators.validateUserId, ticketController.readByUserId);
+
+  router.get('/ticket/movie/:id', filters.isAdmin, validators.validateId, ticketController.readByMovieId);
+  router.get('/ticket/:id', filters.isAdmin, validators.validateId, ticketController.readById);
+  router.get('/ticket', filters.isAdmin, ticketController.readAll);
 }

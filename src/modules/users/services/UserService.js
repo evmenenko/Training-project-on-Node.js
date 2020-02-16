@@ -55,7 +55,7 @@ class UserService {
     return user;
   }
 
-  async readByFirstAndLastName(firstName, lastName, pageNumber, recordsAmount) {
+  async readByName(firstName, lastName, pageNumber, recordsAmount) {
 
     return await this.UserRepository.getAll({
       where: { firstName, lastName },

@@ -26,30 +26,10 @@ const config = require('./config');
     console.log(error.stack);
 
     try {
-      const createLog = require('./middleware/loggers/mongoLogger').createLog;
-      createLog(error);
+      await require('./middleware/loggers/mongoLogger').createLog(ctx, error);
     } 
     catch (ignoredError) { /* Ignore */ }
     
     process.exit(1);
   }
 })();
-
-/*
-
-// logger
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - $ms`)
-})
-
-routes(router)
-
-app.on('error', function(err, ctx) {
-  console.log(err)
-  logger.error('server error', err, ctx)
-})
-
-*/

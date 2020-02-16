@@ -49,7 +49,7 @@ class RequestController {
 
 	async destroy(ctx, next) {
 
-		await RequestService.destroy(ctx.params.id);
+		await RequestService.destroy(ctx.req.user.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

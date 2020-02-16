@@ -1,30 +1,18 @@
 {
   "dev": {
-    "url" : "mongodb://localhost:27017",
-    "database": "online_cinema_db",
-    "collections": {
-      "logs": "logs"
-    },
+    "url" : "mongodb://localhost:27017/online_cinema_db",
     "options": {
       "useNewUrlParser": true
     }
   },
   "test": {
-    "url" : "mongodb://localhost:27017",
-    "database": "online_cinema_db",
-    "collections": {
-      "logs": "logs"
-    },
+    "url" : "mongodb://localhost:27017/online_cinema_db",
     "options": {
       "useNewUrlParser": true
     }
   },
   "prod": {
-    "url" : "mongodb://localhost:27017",
-    "database": "online_cinema_db",
-    "collections": {
-      "logs": "logs"
-    },
+    "url" : "mongodb://localhost:27017/online_cinema_db",
     "options": {
       "useNewUrlParser": true
     }

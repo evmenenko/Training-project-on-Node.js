@@ -24,23 +24,36 @@ class MovieController {
 				201,
 				"success"
 			);
+  }
+  
+  async readByTags(ctx, next) {
+		
+		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
+		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+
+    let movies = [];
+    if (ctx.query.tagIds) {
+      if (!Array.isArray(ctx.query.tagIds)) {
+        ctx.query.tagIds = [ ctx.query.tagIds ];
+      }
+      movies = await MovieService.readByTags(ctx.query.tagIds, page, amount);
+    }    
+
+		ctx.status = 200;
+		ctx.body = ResponseFormat
+			.build(
+				movies,
+				"Movies read successfully",
+				200,
+				"success"
+			);
 	}
 
 	async readAll(ctx, next) {
 		
 		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
 		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
-    let movies;
-
-		if (ctx.query.tagIds) {
-      if (!Array.isArray(ctx.query.tagIds)) {
-        ctx.query.tagIds = [ ctx.query.tagIds ];
-      }
-			movies = await MovieService.readByTags(ctx.query.tagIds, page, amount);
-		}
-		else {
-			movies = await MovieService.readAll(page, amount);
-		}
+    let movies = await MovieService.readAll(page, amount);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
