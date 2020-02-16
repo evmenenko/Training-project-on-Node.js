@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const databaseConnect = require('./sequelize').connect;
 const initApp = require('./loaders');
-const config = require('./config');
+const port = require('./config/serverInfo.json').port || parseInt('3000', 10);
 
 (async () => {
 
@@ -12,10 +12,9 @@ const config = require('./config');
     const app = new Koa();
     initApp(app);
   
-    const port = parseInt(config.port || '3000', 10);
     app.listen(port);
   
-    console.log('Server started.');
+    console.log(`Server started and listening on port: ${port}`);
     
     module.exports = app;
   }
