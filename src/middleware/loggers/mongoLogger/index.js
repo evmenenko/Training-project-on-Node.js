@@ -48,7 +48,7 @@ const createLog = async (ctx, error = null) => {
 
 module.exports.createLog = createLog;
 
-module.exports = (ctx, next) => {
+module.exports = async (ctx, next) => {
 
   try {
 
