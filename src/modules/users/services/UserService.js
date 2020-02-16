@@ -161,16 +161,14 @@ class UserService {
       throw new UnprocessableEntity('User cannot be deleted without a deletion request');
     }
 
-    const email = user.email;
+    const deletedUser = {
+      email: user.email,
+    };
 
     await user.destroy();
     await request.destroy();
-    
-    Mailer.sendMail(
-      email,
-      "Account deleting",
-      "Your account successfully deleted. In the future the site will realized opportunity of its restoration."
-    );
+
+    return deletedUser;
   }
 }
 

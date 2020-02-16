@@ -158,7 +158,13 @@ class UserController {
 
 	async destroy(ctx, next) {
 
-    await UserService.destroy(ctx.params.id);
+    let deletedUser = await UserService.destroy(ctx.params.id);
+
+    await Mailer.sendMail(
+      deletedUser.email,
+      "Account deleting",
+      "Your account successfully deleted. In the future the site will realized opportunity of its restoration."
+    );
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

@@ -1,4 +1,5 @@
 {
+  "name": "Online cinema",
   "email": {
     "service": "gmail",
     "secure": true,

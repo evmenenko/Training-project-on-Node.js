@@ -1,29 +1,25 @@
 const nodemailer = require('nodemailer');
-const emailOptions = require('../config/serverInfo.json').email;
+const serverInfo = require('../config/serverInfo.json');
 const createLog = require('../middleware/loggers/mongoLogger').createLog;
 
 // как обрабатывать ошибки, если, например, что-то произойдет с почтой?
+// и нужно ли использовать этот модуль? есть алтернативы, например, sendmail
+// но он не так популярен. почему??
 
 class Mailer {
 
-  sendMail(email, subject, message) {
+  constructor() {
+    this.mailTransport = nodemailer.createTransport(serverInfo.email);
+  }
 
-    const mailTransport = nodemailer.createTransport(emailOptions);
-  
-    mailTransport
+  async sendMail(email, subject, message) {
+    return await this.mailTransport
       .sendMail(
         {
-          from: 'Online cinema',
+          from: serverInfo.name,
           to: email,
           subject: subject,
           text: message,
-        },
-        function(err, info) {
-          console.log("* error from mailer *");
-          console.log(err.name);
-          console.log(err.message);
-          console.log(info);
-          createLog(err);
         }
       );
   };
