@@ -39,19 +39,19 @@ class TicketController {
   
   async readByUserId(ctx, next) {
 		
-		let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+	  let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
     let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let userId = parseInt(ctx.query.userId, 10) || ctx.req.user.id;
     let tickets = await TicketService.readByUserId(userId, page, amount);
 
-		ctx.status = 200;
-		ctx.body = ResponseFormat
-			.build(
-				tickets,
-				"Tickets read successfully",
-				200,
-				"success"
-			);
+    ctx.status = 200;
+    ctx.body = ResponseFormat
+      .build(
+        tickets,
+        "Tickets read successfully",
+        200,
+        "success"
+      );
 	}
 
 	async readAll(ctx, next) {
