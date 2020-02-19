@@ -123,7 +123,11 @@ class UserService {
     return user;
   }
 
-  async changePassword(id, oldPassword, newPassword) {
+  async changePassword(id, oldPassword, newPassword, repeatedNewPassword) {
+
+    if (newPassword != repeatedNewPassword) {
+      throw new UnprocessableEntity('Password is incorrectly repeated');
+    }
 
     let user = await this.UserRepository.get({
       where: { id },

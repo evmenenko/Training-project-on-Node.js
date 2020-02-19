@@ -1,17 +1,35 @@
 const CronJob = require('cron').CronJob;
+const MovieRepository = require('../modules/movies/repositories/MovieRepository');
+const Op = require('sequelize').Op;
+
+const movieRepository = new MovieRepository();
 
 const job = new CronJob(
-  '* * * * * *',
-  function() {
+  '0 0 0 * * *',
+  async function() {
 
-    // СПРОСИТЬ, КАК ЛУЧШЕ УДАЛЯТЬ ФИЛЬМЫ:
-    // - искать все показы для фильма и если все прошли, то удалять
-    // - создать для фильма поля дата премьеры и дата завершения, далее у фильма просто смотреть дату завершения 
+    let movies = await movieRepository.getAll({
+      attributes: [ 'id' ],
+      include: [
+        {
+          model: Display,
+          as: 'displays',
+          attributes: [ 'endDate' ],
+          where: {
+            endDate: {
+              [Op.lt]: new Date(),
+            },
+          },
+        },
+      ],
+    });
 
-  },
-  null,
-  true,
-  'America/Los_Angeles'
+    movies.forEach(movie => {
+      movie.destroy();
+    });
+  }
 );
 
-job.start();
+module.exports = () => {
+  job.start();
+}

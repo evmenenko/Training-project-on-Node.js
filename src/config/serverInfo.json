@@ -1,16 +1,5 @@
 {
   "port": 3000,
   "name": "Online cinema",
-  "email": {
-    "service": "gmail",
-    "secure": true,
-    "port": 465,
-    "auth": {
-      "user": "USERNAME",
-      "pass": "PASSWORD"
-    },
-    "tls": {
-      "rejectUnauthorized": false
-    }
-  }
+  "email": "arthur.evmenenko@gmail.com"
 }

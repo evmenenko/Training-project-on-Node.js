@@ -1,9 +1,9 @@
 const Joi = require('@hapi/joi');
 
-let idSchema = {
+let getById = {
   id: Joi.number().required(),
 };
 
 module.exports = {
-  idSchema,
+  getById,
 }

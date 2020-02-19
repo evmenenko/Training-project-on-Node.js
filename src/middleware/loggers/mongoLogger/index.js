@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const config = require('../../../config/mongoLogger.json');
-const schemas = require('./schemas');
+const schema = require('./schema');
 
 const createLog = async (ctx, error = null) => {
 
@@ -10,36 +10,30 @@ const createLog = async (ctx, error = null) => {
 
   try {
 
-    const Log = connection.model("Log", schemas.logSchema);
-    const ErrorLog = connection.model("Log", schemas.errorLogSchema);
-
     const body = {
       url: ctx.originalUrl,
-      query: ctx.querystring,
       method: ctx.method,
+      body: ctx.body,
       date: new Date(),
     };
 
-    let log;
+    let Log = connection.model("Log", schema);
 
     if (error) {
-
       body.status = "failed";
-      body.error = {
+      body.data = {
         name: error.name,
         message: error.message,
       };
-
-      log = new ErrorLog(body);
     }
     else {
-
       body.status = "success";
-
-      log = new Log(body);
+      body.data = {};
     }
-    
-    console.log(await log.save());    
+
+    let log = new Log(body);
+    await log.save();
+
   }
   finally {
     await connection.disconnect();

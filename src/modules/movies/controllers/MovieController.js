@@ -28,8 +28,8 @@ class MovieController {
   
   async readByTags(ctx, next) {
 		
-		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+		let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+		let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
 
     let movies = [];
     if (ctx.query.tagIds) {
@@ -51,8 +51,8 @@ class MovieController {
 
 	async readAll(ctx, next) {
 		
-		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-		let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+		let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+		let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let movies = await MovieService.readAll(page, amount);
 
 		ctx.status = 200;

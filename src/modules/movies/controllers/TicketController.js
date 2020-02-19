@@ -23,8 +23,8 @@ class TicketController {
   
   async readByMovieId(ctx, next) {
 		
-		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+		let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let tickets = await TicketService.readByMovieId(ctx.params.id, page, amount);
 
 		ctx.status = 200;
@@ -39,9 +39,10 @@ class TicketController {
   
   async readByUserId(ctx, next) {
 		
-		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
-    let tickets = await TicketService.readByUserId(ctx.state.id, page, amount);
+		let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
+    let userId = parseInt(ctx.query.userId, 10) || ctx.req.user.id;
+    let tickets = await TicketService.readByUserId(userId, page, amount);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -55,8 +56,8 @@ class TicketController {
 
 	async readAll(ctx, next) {
 		
-		let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+		let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let tickets = await TicketService.readAll(page, amount);
 
 		ctx.status = 200;

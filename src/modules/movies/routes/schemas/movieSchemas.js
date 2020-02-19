@@ -1,30 +1,62 @@
 const Joi = require('@hapi/joi');
 
-let idSchema = {
+let searchByTags = {
+  page: Joi.number().optional(),
+  amount: Joi.number().optional(),
+  tagIds: [
+    Joi.number().required(),
+    Joi
+      .array()
+      .items(Joi.number())
+      .required(),
+  ],
+};
+
+let getById = {
   id: Joi.number().required(),
 };
 
-let movieSchema = {
+let update = {
+  id: Joi.number().required(),
   name: Joi.string().required(),
   previewUrl: Joi.string().uri().required(),
   description: Joi.string().optional(),
+  tagNames: [
+    Joi.string().required(),
+    Joi
+      .array()
+      .items(Joi.string())
+      .required(),
+  ],
 };
 
-let tagNamesSchema = {
-  tagNames: Joi.array().items(
-    Joi.string()
-  ).required(),
+let deleteById = {
+  id: Joi.number().required(),
 };
 
-let tagIdsSchema = {
-  tagIds: Joi.array().items(
-    Joi.number()
-  ).required(),
+let getAll = {
+  page: Joi.number().optional(),
+  amount: Joi.number().optional(),
+};
+
+let create = {
+  name: Joi.string().required(),
+  previewUrl: Joi.string().uri().required(),
+  description: Joi.string().optional(),
+  tagNames: [
+    Joi.string().required(),
+    Joi
+      .array()
+      .items(Joi.string())
+      .required(),
+  ],
 };
 
 module.exports = {
-  idSchema,
-  movieSchema,
-  tagNamesSchema,
-  tagIdsSchema,
+  searchByTags,
+  getById,
+  update,
+  deleteById,
+  getAll,
+  create,
 }

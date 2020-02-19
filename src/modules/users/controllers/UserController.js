@@ -30,8 +30,8 @@ class UserController {
   
   async readAll(ctx, next) {
 
-    let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+    let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let users = await UserService.readAll(page, amount);
 
 		ctx.status = 200;
@@ -46,8 +46,8 @@ class UserController {
 
 	async readByName(ctx, next) {
 
-    let page = parseInt(ctx.query.pageNumber, 10) || paginationInfo.DEFAULT_PAGE;
-    let amount = parseInt(ctx.query.recordsAmount, 10) || paginationInfo.DEFAULT_AMOUNT;
+    let page = parseInt(ctx.query.page, 10) || paginationInfo.DEFAULT_PAGE;
+    let amount = parseInt(ctx.query.amount, 10) || paginationInfo.DEFAULT_AMOUNT;
     let users = await UserService
       .readByName(
         ctx.query.firstName,
@@ -111,10 +111,10 @@ class UserController {
     await UserService.changePassword(
       ctx.req.user.id,
       ctx.request.body.oldPassword,
-      ctx.request.body.newPassword
+      ctx.request.body.newPassword,
+      ctx.request.body.repeatedNewPassword,
     );
 
-		// что возвращать??
 		ctx.status = 200;
 		ctx.body = ResponseFormat
 			.build(

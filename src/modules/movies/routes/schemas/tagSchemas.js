@@ -1,14 +1,25 @@
 const Joi = require('@hapi/joi');
 
-let idSchema = {
+let getById = {
   id: Joi.number().required(),
 };
 
-let tagSchema = {
+let update = {
+  id: Joi.number().required(),
+  name: Joi.string().required(),
+};
+
+let deleteById = {
+  id: Joi.number().required(),
+};
+
+let create = {
   name: Joi.string().required(),
 };
 
 module.exports = {
-  idSchema,
-  tagSchema,
+  getById,
+  update,
+  deleteById,
+  create,
 }

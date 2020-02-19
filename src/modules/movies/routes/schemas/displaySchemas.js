@@ -1,16 +1,35 @@
 const Joi = require('@hapi/joi');
 
-let idSchema = {
+let getById = {
   id: Joi.number().required(),
 };
 
-let displaySchema = {
+let update = {
+  id: Joi.number().required(),
   startDate: Joi.date().required(),
   endDate: Joi.date().required(),
   movieId: Joi.number().required(),
 };
 
+let deleteById = {
+  id: Joi.number().required(),
+};
+
+let create = {
+  startDate: Joi.date().required(),
+  endDate: Joi.date().required(),
+  movieId: Joi.number().required(),
+};
+
+let getAll = {
+  page: Joi.number().optional(),
+  amount: Joi.number().optional(),
+};
+
 module.exports = {
-  idSchema,
-  displaySchema,
+  getById,
+  update,
+  deleteById,
+  create,
+  getAll,
 }
