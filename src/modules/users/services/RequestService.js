@@ -12,7 +12,9 @@ class RequestService {
 
   async create(object) {
 
-    let user = await this.UserRepository.readById(object.userId);
+    let user = await this.UserRepository.get({
+      where: { id: object.userId },
+    });
 
     if (!user) {
       throw new UnprocessableEntity('User for deleting is not found');

@@ -1,21 +1,28 @@
-const sendmail = require('sendmail')();
+const nodemailer = require("nodemailer");
 const serverInfo = require('../config/serverInfo.json');
 
 class Mailer {
 
-  sendMail(email, subject, message) {
-    sendmail(
-      {
-        from: serverInfo.email,
-        to: email,
-        subject: subject,
-        html: message,
-      },
-      function(err, reply) {
-        console.log(err && err.stack);
-        console.dir(reply);
+  async sendMail(email, subject, message) {
+
+    let transporter = nodemailer.createTransport({
+      host: "gmail",
+      port: 465,
+      secure: true,
+      auth: {
+        user: serverInfo.email,
+        pass: serverInfo.passwprd,
       }
-    );
+    });
+
+    await transporter.sendMail({
+      from: serverInfo.email,
+      to: email,
+      subject: subject,
+      text: message,
+    });
+
+    transporter.close();
   };
 }
 

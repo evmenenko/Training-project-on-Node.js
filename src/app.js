@@ -10,7 +10,7 @@ const port = require('./config/serverInfo.json').port || parseInt('3000', 10);
     await databaseConnect();
   
     const app = new Koa();
-    initApp(app);
+    await initApp(app);
   
     app.listen(port);
   

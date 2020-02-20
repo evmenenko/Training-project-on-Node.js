@@ -6,7 +6,7 @@ const notFoundHandler = require('../middleware/notFoundHandler');
 const errorHandler = require('../middleware/errorHandler');
 const initCron = require('../scripts/script');
 
-module.exports = (app) => {
+module.exports = async (app) => {
   app.use(errorHandler);
   initKoa(app);
   initSessions(app);
