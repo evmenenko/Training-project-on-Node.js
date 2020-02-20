@@ -7,6 +7,8 @@ class Mailer {
     
     this.transporter = nodemailer.createTransport(
       {
+        pool: true,
+        maxConnections: 10,
         host: serverInfo.host,
         port: serverInfo.port,
         secure: serverInfo.secure,
@@ -23,13 +25,13 @@ class Mailer {
 
   async sendMail(email, subject, message) {
 
+    await this.transporter.verify();
+
     const info = await this.transporter.sendMail({
       to: email,
       subject: subject,
       text: message,
     });
-
-    console.log(info);
   };
 }
 
