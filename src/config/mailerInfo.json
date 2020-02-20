@@ -1,0 +1,8 @@
+{
+    "name": "Online cinema",
+    "host": "smtp.mail.ru",
+    "port": 465,
+    "secure": true,
+    "email": "artik.e@mail.ru",
+    "password": "7274395_artikEK"
+}

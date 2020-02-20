@@ -70,12 +70,6 @@ class UserController {
 	async readById(ctx, next) {
 		
     let user = await UserService.readById(ctx.params.id);
-    
-    await Mailer.sendMail(
-      user.email,
-      "Account deleting",
-      "Your account successfully deleted. In the future the site will realized opportunity of its restoration."
-    );
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

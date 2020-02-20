@@ -1,6 +1,3 @@
 {
-  "port": 3000,
-  "name": "Online cinema",
-  "email": "arthur.evmenenko@gmail.com",
-  "password": "7274395_artikEK"
+  "port": 3000
 }
