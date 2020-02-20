@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const config = require('../../../config/mongoLogger.json');
-const schema = require('./schema');
+const schemas = require('./schema');
 
 const createLog = async (ctx, error = null) => {
 
@@ -15,11 +15,12 @@ const createLog = async (ctx, error = null) => {
       date: new Date(),
     };
 
-    let Log = connection.model("Log", schema);
+    let Log = error ? connection.model("Error", schemas.errorSchema)
+                    : connection.model("Log", schemas.logSchema);
 
     if (error) {
       body.status = "failed";
-      body.data = {
+      body.error = {
         name: error.name,
         message: error.message,
       };
