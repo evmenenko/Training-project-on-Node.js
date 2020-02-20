@@ -12,7 +12,6 @@ let tagIdsSchema = {
 
 let movieSchema = {
   name: Joi.string().required(),
-  previewUrl: Joi.string().uri().required(),
   description: Joi.string().optional(),
   tagNames: [
     Joi.string().required(),

@@ -3,6 +3,7 @@ const tagController = require('../controllers/TagController');
 const filters = require('../../../middleware/filters');
 const schemas = require('../../../schemas');
 const validate = require('../../../classes/Validator').validate;
+const multer = require('../../../middleware/multer');
 
 module.exports = (router) => {
 
@@ -45,6 +46,7 @@ module.exports = (router) => {
   router.post(
     '/movie',
     filters.isAdmin,
+    multer.upload.single('moviePreview'),
     validate({ body: schemas.movie.movieSchema }),
     movieController.create,
     tagController.addTags

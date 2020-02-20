@@ -3,6 +3,7 @@ const cookieParser = require('koa-cookie-parser');
 const json = require('koa-json');
 
 module.exports = (app) => {
+
   app
     .use(cookieParser({
       cookieNameList: [ 'userId', 'uuId' ],

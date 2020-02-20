@@ -8,15 +8,11 @@ const roleFilter = (roleName) => {
 
     let user = await UserService.readById(ctx.req.user.id);
     
-    for (let role of user.roles) {
-  
-      if (role.name == roleName) {
-        await next();
-        return;
-      }
+    if (!user.roles.find(role => role.name == roleName)) {
+      throw new BadRequest("Access denied");
     }
   
-    throw new BadRequest("Access denied");
+    await next();
   }
 }
 

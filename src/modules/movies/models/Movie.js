@@ -13,9 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     previewUrl: {
       type: DataTypes.STRING(2048),
       allowNull: false,
-      validate: {
-        isUrl: true,
-      },
       field: 'preview_url',
     },
   }, {

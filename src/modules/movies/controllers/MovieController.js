@@ -8,7 +8,7 @@ class MovieController {
 
 		let movie = await MovieService.create({
 			name: ctx.request.body.name,
-			previewUrl: ctx.request.body.previewUrl,
+			previewUrl: ctx.URL.origin + '/uploads/' + ctx.req.file.filename,
 			description: ctx.request.body.description,
 		});
 
@@ -85,7 +85,7 @@ class MovieController {
 			ctx.params.id,
 			{
         name: ctx.request.body.name,
-        previewUrl: ctx.request.body.previewUrl,
+        previewUrl: ctx.URL.origin + '/uploads/' + ctx.req.file.filename,
         description: ctx.request.body.description,
 			}
 		);

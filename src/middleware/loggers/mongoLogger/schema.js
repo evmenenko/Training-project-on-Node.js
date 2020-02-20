@@ -13,3 +13,40 @@ module.exports = new Schema(
     versionKey: false,
   },
 );
+
+const httpSchema = new Schema(
+  {
+    url: String,
+    method: String,
+    date: Date,
+    data: Object,
+  }, 
+  {
+    versionKey: false,
+  },
+);
+
+const databaseSchema = new Schema(
+  {
+    date: Date,
+    data: Object,
+  }, 
+  {
+    versionKey: false,
+  },
+);
+
+const statusSchema = new Schema(
+  {
+    status: String,
+    date: Date,
+    data: Object,
+  }, 
+  {
+    versionKey: false,
+  },
+);
+
+// module.exports = {
+//   httpSchema,
+// }

@@ -24,9 +24,7 @@ const job = new CronJob(
       ],
     });
 
-    movies.forEach(movie => {
-      movie.destroy();
-    });
+    movies.forEach(movie => movie.destroy());
   }
 );
 

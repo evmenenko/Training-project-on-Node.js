@@ -4,7 +4,7 @@ const initRoutes = require('./routes');
 const initSessions = require('./sessions');
 const notFoundHandler = require('../middleware/notFoundHandler');
 const errorHandler = require('../middleware/errorHandler');
-const initCron = require('../scripts/script');
+const initCron = require('../scripts/cron');
 
 module.exports = async (app) => {
   app.use(errorHandler);
