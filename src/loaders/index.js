@@ -13,5 +13,5 @@ module.exports = async (app) => {
   initMiddleware(app);
   initRoutes(app);
   app.use(notFoundHandler);
-  // initCron();
+  initCron();
 }

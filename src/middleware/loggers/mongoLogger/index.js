@@ -4,8 +4,6 @@ const schema = require('./schema');
 
 const createLog = async (ctx, error = null) => {
 
-  // спросить, как работать с полученным соединением?
-
   const connection = await mongoose.connect(config.dev.url, config.dev.options);
 
   try {
