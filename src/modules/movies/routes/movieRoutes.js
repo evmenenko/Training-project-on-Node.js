@@ -22,6 +22,7 @@ module.exports = (router) => {
   router.post(
     '/movie/:id',
     filters.isAdmin,
+    multer.upload.single('moviePreview'),
     validate({
       params: schemas.id,
       body: schemas.movie.movieSchema,

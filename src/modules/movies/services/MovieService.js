@@ -2,6 +2,8 @@ const MovieRepository = require('../repositories/MovieRepository');
 const { Tag } = require('../../../dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
+const fileManager = require('../../../classes/FileManager');
+const settings = require('../../../../settings');
 
 class MovieService {
 
@@ -73,8 +75,6 @@ class MovieService {
     movie = await this.MovieRepository.get({
       where: { name: object.name },
     });
-
-    // посмотреть, можно ли оптимизировать немного проверки
     
     if (movie && movie.id !== +id) {
       throw new UnprocessableEntity('Movie with this name already in use');
@@ -86,7 +86,12 @@ class MovieService {
       throw new NotFound('Movie for updating is not found');
     }
     
+    const oldPreviewUrl = movie.previewUrl;
+
     await movie.update(object);
+
+    const fileName = oldPreviewUrl.substring(oldPreviewUrl.lastIndexOf('/') + 1);
+    fileManager.deleteFile(settings.PROJECT_DIR + '\\src\\uploads\\' + fileName);
     
 		return movie;
   }

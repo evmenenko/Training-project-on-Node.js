@@ -67,7 +67,7 @@ class MovieController {
 
 	async readById(ctx, next) {
 		
-		let movie = await MovieService.readById(ctx.params.id);
+    let movie = await MovieService.readById(ctx.params.id);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat
@@ -92,7 +92,7 @@ class MovieController {
 
 		await next(); // TagController.addTags
 
-		await updatedMovie.setTags(ctx.state.tagIds);
+    await updatedMovie.setTags(ctx.state.tagIds);
 
 		ctx.status = 200;
 		ctx.body = ResponseFormat

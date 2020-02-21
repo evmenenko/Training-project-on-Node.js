@@ -11,12 +11,11 @@ const createLog = async (ctx, error = null) => {
     const body = {
       url: ctx.originalUrl,
       method: ctx.method,
-      body: ctx.body,
+      body: ctx.request.body,
       date: new Date(),
     };
 
-    let Log = error ? connection.model("Error", schemas.errorSchema)
-                    : connection.model("Log", schemas.logSchema);
+    let Log = error ? connection.model("Error", schemas.errorSchema) : connection.model("Log", schemas.logSchema);
 
     if (error) {
       body.status = "failed";
@@ -49,7 +48,6 @@ module.exports = async (ctx, next) => {
     await createLog(ctx);
 
   } catch (error) {
-
     await createLog(ctx, error);
     throw error;
   }
