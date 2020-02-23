@@ -1,4 +1,4 @@
 module.exports = {
-    API_DIR: __dirname,
+    SRC_DIR: __dirname,
     env: "dev",
 }

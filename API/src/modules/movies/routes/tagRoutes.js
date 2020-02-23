@@ -8,7 +8,7 @@ module.exports = (router) => {
   router.get(
     '/tag/:id',
     filters.isAdmin,
-    validate(schemas.getById),
+    validate({ params: schemas.id }),
     tagController.readById
   );
 
@@ -25,7 +25,7 @@ module.exports = (router) => {
   router.delete(
     '/tag/:id',
     filters.isAdmin,
-    validate(schemas.getById),
+    validate({ params: schemas.id }),
     tagController.destroy
   );
 

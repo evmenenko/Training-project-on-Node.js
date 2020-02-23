@@ -3,7 +3,7 @@ const { Tag } = require('../../../dbModels');
 const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
 const NotFound = require('../../../classes/errors/4xx/notFound');
 const fileManager = require('../../../classes/FileManager');
-const API_DIR = require('../../../settings').API_DIR;
+const SRC_DIR = require('../../../settings').SRC_DIR;
 
 class MovieService {
 
@@ -91,7 +91,7 @@ class MovieService {
     await movie.update(object);
 
     const fileName = oldPreviewUrl.substring(oldPreviewUrl.lastIndexOf('/') + 1);
-    fileManager.deleteFile(API_DIR + '\\uploads\\' + fileName);
+    fileManager.deleteFile(SRC_DIR + '\\uploads\\' + fileName);
 		return movie;
   }
 
