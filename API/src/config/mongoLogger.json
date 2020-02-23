@@ -6,7 +6,7 @@
     }
   },
   "test": {
-    "url" : "mongodb://localhost:27017/online_cinema_db",
+    "url" : "mongodb://localhost:27017/online_cinema_test_db",
     "options": {
       "useNewUrlParser": true
     }

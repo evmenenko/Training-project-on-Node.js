@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const config = require('../../../config/mongoLogger.json');
 const schemas = require('./schema');
+const env = require('../../../settings').env;
 
 const createLog = async (ctx, error = null) => {
 
-  const connection = await mongoose.connect(config.dev.url, config.dev.options);
+  const connection = await mongoose.connect(config[env].url, config[env].options);
 
   try {
 

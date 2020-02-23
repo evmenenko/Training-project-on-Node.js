@@ -1,14 +1,15 @@
 const Sequelize = require('sequelize');
 const dbInfo = require('./config/database.json');
+const env = require('./settings').env;
 
 const sequelize = new Sequelize(
-  dbInfo.dev.database,
-  dbInfo.dev.username,
-  dbInfo.dev.password,
+  dbInfo[env].database,
+  dbInfo[env].username,
+  dbInfo[env].password,
   {
-    host: dbInfo.dev.host,
-    dialect: dbInfo.dev.dialect,
-    logging: dbInfo.dev.logging,
+    host: dbInfo[env].host,
+    dialect: dbInfo[env].dialect,
+    logging: dbInfo[env].logging,
   }
 );
 

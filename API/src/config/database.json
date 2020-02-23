@@ -8,7 +8,7 @@
     "logging": false
   },
   "test": {
-    "database": "online_cinema_db",
+    "database": "online_cinema_test_db",
     "username": "root",
     "password": "root",
     "host": "localhost",
