@@ -1,5 +1,5 @@
 const TagRepository = require('../repositories/TagRepository');
-const NotFound = require('../../../classes/errors/4xx/notFound');
+const NotFound = require('../../../classes/errors/4xx/NotFound');
 
 class TagService {
 

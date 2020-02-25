@@ -5,6 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   class RoleUser extends Sequelize.Model {}
 
   RoleUser.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      field: 'id',
+    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

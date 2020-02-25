@@ -1,5 +1,5 @@
 const UserService = require('../modules/users/services/UserService');
-const BadRequest = require('../classes/errors/4xx/badRequest');
+const BadRequest = require('../classes/errors/4xx/BadRequest');
 const usersInfo = require('../constants/usersInfo');
 
 const roleFilter = (roleName) => {

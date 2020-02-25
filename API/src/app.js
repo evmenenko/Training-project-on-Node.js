@@ -8,6 +8,13 @@ const port = require('./config/serverInfo.json').port || parseInt('3000', 10);
   try {
 
     await databaseConnect();
+
+    try {
+      await require('./middleware/loggers/mongoLogger').createInfo({
+        message: "Database connected successfully",
+      });
+    }
+    catch (ignoredError) { /* Ignore */ }
   
     const app = new Koa();
 
@@ -25,7 +32,7 @@ const port = require('./config/serverInfo.json').port || parseInt('3000', 10);
     console.log(error.stack);
 
     try {
-      await require('./middleware/loggers/mongoLogger').createLog(ctx, error);
+      await require('./middleware/loggers/mongoLogger').createLog({}, error);
     } 
     catch (ignoredError) { /* Ignore */ }
     

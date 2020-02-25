@@ -3,6 +3,28 @@ const config = require('../../../config/mongoLogger.json');
 const schemas = require('./schema');
 const env = require('../../../settings').env;
 
+const createInfo = async (infoObject) => {
+
+  const connection = await mongoose.connect(config[env].url, config[env].options);
+
+  try {
+
+    const body = {
+      data: infoObject,
+      date: new Date(),
+    };
+
+    let Info = connection.model("Information", schemas.informationSchema);
+
+    let info = new Info(body);
+	  await info.save();
+
+  }
+  finally {
+    await connection.disconnect();
+  }
+}
+
 const createLog = async (ctx, error = null) => {
 
   const connection = await mongoose.connect(config[env].url, config[env].options);
@@ -31,15 +53,13 @@ const createLog = async (ctx, error = null) => {
     }
 
     let log = new Log(body);
-    await log.save();
+	await log.save();
 
   }
   finally {
     await connection.disconnect();
   }
 }
-
-module.exports.createLog = createLog;
 
 module.exports = async (ctx, next) => {
 
@@ -53,3 +73,6 @@ module.exports = async (ctx, next) => {
     throw error;
   }
 }
+
+module.exports.createInfo = createInfo;
+module.exports.createLog = createLog;

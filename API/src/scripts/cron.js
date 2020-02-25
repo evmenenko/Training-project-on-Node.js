@@ -1,4 +1,5 @@
 const CronJob = require('cron').CronJob;
+const { Display } = require('../dbModels');
 const MovieRepository = require('../modules/movies/repositories/MovieRepository');
 const Op = require('sequelize').Op;
 

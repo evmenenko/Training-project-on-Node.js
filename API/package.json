@@ -1,10 +1,21 @@
 {
   "name": "training-project-on-node.js",
   "version": "1.0.0",
+  "description": "nodejs image demo",
+  "author": "evmenenko <artik.e@mail.ru>",
+  "license": "MIT",
   "private": true,
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "mysql",
+    "sequelize",
+    "koa2"
+  ],
+  "main": "app.js",
   "scripts": {
-    "start": "node ./src/app.js",
-    "test": "mocha ./tests/**/*.test.js -exit"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/app.js"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",

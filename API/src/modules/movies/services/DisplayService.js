@@ -1,6 +1,6 @@
 const DisplayRepository = require('../repositories/DisplayRepository');
 const MovieRepository = require('../repositories/MovieRepository');
-const NotFound = require('../../../classes/errors/4xx/notFound');
+const NotFound = require('../../../classes/errors/4xx/NotFound');
 const { Movie } = require('../../../dbModels');
 
 class DisplayService {

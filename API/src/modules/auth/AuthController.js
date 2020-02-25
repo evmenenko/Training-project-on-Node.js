@@ -1,5 +1,5 @@
 const UserService = require('../users/services/UserService');
-const NotFound = require('../../classes/errors/4xx/notFound');
+const NotFound = require('../../classes/errors/4xx/NotFound');
 const ResponseFormat = require('../../helpers/ResponseFormat');
 const { passport } = require('../../passport');
 const usersInfo = require('../../constants/usersInfo');

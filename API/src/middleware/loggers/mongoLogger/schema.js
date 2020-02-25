@@ -1,5 +1,15 @@
 const Schema = require("mongoose").Schema;
 
+const informationSchema = new Schema(
+  {
+    date: Date,
+    data: Object,
+  }, 
+  {
+    versionKey: false,
+  },
+);
+
 const logSchema = new Schema(
   {
     url: String,
@@ -29,6 +39,7 @@ const errorSchema = new Schema(
 );
 
 module.exports = {
+  informationSchema,
   logSchema,
   errorSchema,
 }

@@ -3,7 +3,7 @@
     "database": "online_cinema_db",
     "username": "root",
     "password": "root",
-    "host": "localhost",
+    "host": "mysql",
     "dialect": "mysql",
     "logging": false
   },

@@ -1,7 +1,7 @@
 const TicketRepository = require('../repositories/TicketRepository');
 const DisplayRepository = require('../repositories/DisplayRepository');
 const UserRepository = require('../../users/repositories/UserRepository');
-const NotFound = require('../../../classes/errors/4xx/notFound');
+const NotFound = require('../../../classes/errors/4xx/NotFound');
 const UnprocessableEntity = require('../../../classes/errors/4xx/UnprocessableEntity');
 const { Display, User } = require('../../../dbModels');
 

@@ -1,7 +1,7 @@
 const MovieRepository = require('../repositories/MovieRepository');
 const { Tag } = require('../../../dbModels');
-const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
-const NotFound = require('../../../classes/errors/4xx/notFound');
+const UnprocessableEntity = require('../../../classes/errors/4xx/UnprocessableEntity');
+const NotFound = require('../../../classes/errors/4xx/NotFound');
 const fileManager = require('../../../classes/FileManager');
 const SRC_DIR = require('../../../settings').SRC_DIR;
 

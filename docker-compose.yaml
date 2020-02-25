@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+
+  api:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    restart: always
+    container_name: api
+    volumes:
+      - ${API_PATH_HOST}:${API_PATH_CONTAINER}
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - mongodb
+      - mysql
+    links:
+      - mongodb
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      #- ${MYSQL_PATH_HOST}:/var/lib/mysql
+      - ${MYSQL_PATH_SQL_INIT}:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    #volumes:
+      #- ${MONGO_PATH_HOST}:/data/db
+    #command: mongod --noauth
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,4 +1,4 @@
-const requestController = require('../controllers/requestController');
+const requestController = require('../controllers/RequestController');
 const filters = require('../../../middleware/filters');
 const schemas = require('../../../schemas');
 const validate = require('../../../classes/Validator').validate;

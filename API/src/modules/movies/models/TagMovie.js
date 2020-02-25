@@ -5,6 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   class TagsMovies extends Sequelize.Model {}
 
   TagsMovies.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     tagId: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -49,9 +49,9 @@ class Validator {
       if (query) {
         await Joi.object(querySchema).validateAsync(ctx.query);
       }
-      
+	  
       if (body) {
-        if (ctx.request.body) {
+        if (!ctx.request.body) {
           ctx.request.body = {};
           Object.assign(ctx.request.body, ctx.req.body)
         }

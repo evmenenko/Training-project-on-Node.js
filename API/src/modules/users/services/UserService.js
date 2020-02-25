@@ -1,8 +1,8 @@
 const UserRepository = require('../repositories/UserRepository');
 const RequestRepository = require('../repositories/RequestRepository');
 const { Role } = require('../../../dbModels');
-const UnprocessableEntity = require('../../../classes/errors/4xx/unprocessableEntity');
-const NotFound = require('../../../classes/errors/4xx/notFound');
+const UnprocessableEntity = require('../../../classes/errors/4xx/UnprocessableEntity');
+const NotFound = require('../../../classes/errors/4xx/NotFound');
 const Mailer = require('../../../classes/Mailer');
 
 class UserService {
